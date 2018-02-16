@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Decides which screen user is on; Whether the starting screen, a menu screen, or a game screen.
+ * Decides which screen user is on -- whether it's the starting screen, a menu screen, or a game screen.
  */
 
 public class ScreenController {

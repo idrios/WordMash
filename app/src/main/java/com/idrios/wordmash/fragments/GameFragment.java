@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.idrios.wordmash.R;
 
 
-public class GameFragment extends Fragment {
+public class GameFragment extends BaseFragment {
 
     public GameFragment() {
 
@@ -20,7 +20,6 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
