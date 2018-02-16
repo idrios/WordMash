@@ -5,18 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.idrios.wordmash.common.Shared;
+import com.idrios.wordmash.engine.ScreenController;
+import com.idrios.wordmash.engine.ScreenController.Screen;
 
 public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Shared.context = getApplicationContext();
-
         setContentView(R.layout.activity_main);
 
+        Shared.context = getApplicationContext();
         Shared.activity = this;
+
+        //Load directly to game
+        ScreenController.getInstance().openScreen(Screen.GAME);
+
     }
 
     @Override
