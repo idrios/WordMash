@@ -21,7 +21,7 @@ public class TileView extends FrameLayout {
     private ImageView mTileImage;
 
     public TileView(Context context){
-        super(context);
+        this(context, null);
     }
 
     public TileView(Context context, AttributeSet attributeSet){
@@ -43,7 +43,7 @@ public class TileView extends FrameLayout {
     }
 
     ////////// Code for flashy animations here ///////////
-
+    //TODO Add animations for the tiles when clicked
 
 
 }

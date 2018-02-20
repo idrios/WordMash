@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.idrios.wordmash.engine.Engine;
 import com.idrios.wordmash.events.EventBus;
+import com.idrios.wordmash.model.Game;
 
 /**
  * Created by idrios on 2/16/18.
@@ -16,4 +17,5 @@ public class Shared {
     public static FragmentActivity activity;
     public static Engine engine;
     public static EventBus eventBus;
+
 }
