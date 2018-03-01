@@ -49,11 +49,6 @@ public class BoardView extends LinearLayout {
     //Dimensions
     private int mScreenWidth;
     private int mScreenHeight;
-    private int mTopMargin;
-    private int mTopPadding;
-    private int mLeftMargin;
-    private int mLeftPadding;
-    private int mTilePadding;
     private int mBoardCenterX;
     private int mBoardCenterY;
     private int mSize;
@@ -73,7 +68,7 @@ public class BoardView extends LinearLayout {
         int padding = getResources().getDimensionPixelSize(R.dimen.board_padding);
         mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20); // I have no clue on these numbers here
         mScreenHeight = Utils.screenHeight() - padding*2 - margin;
-        mViewReference = new HashMap<Integer, TileView>()   ;
+        mViewReference = new HashMap<Integer, TileView>();
 
     }
 
@@ -111,14 +106,16 @@ public class BoardView extends LinearLayout {
         }
 
         mTileLayoutParams = new LinearLayout.LayoutParams(mSize, mSize);
-        // TODO check out that these TileLayoutParams make sense
+        // TODO update mTileLayoutParams to be correct
 
         buildBoard();
 
     }
 
     public void buildBoard(){
+        // TODO upload WordMash background
 
+        // TODO give correct layoutParams to tiles
         LinearLayout linearLayout = new LinearLayout(getContext());
 
         for(int tileNum = 1; tileNum < mBoardConfiguration.maxWordSize+1; tileNum++ ){
@@ -133,5 +130,11 @@ public class BoardView extends LinearLayout {
         parent.addView(tileView);
         parent.setClipChildren(false);
         mViewReference.put(id, tileView);
+
+        //TODO load images via bitmap
+
+        //TODO set onclicklistener
+
+        //TODO give give animations
     }
 }

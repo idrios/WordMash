@@ -7,11 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.idrios.wordmash.R;
+import com.idrios.wordmash.assets.BoardView;
+import com.idrios.wordmash.common.Shared;
+import com.idrios.wordmash.model.Game;
 
 
 public class GameFragment extends BaseFragment {
+
+    private BoardView mBoardView;
 
     public GameFragment() {
 
@@ -25,7 +31,16 @@ public class GameFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_game, container, false);
+        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.fragment_game, container, false);
+
+        mBoardView = BoardView.fromXml(getActivity().getApplicationContext(), view);
+        FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.game_container);
+        frameLayout.addView(mBoardView);
+
+        //build board
+        buildBoard();
+
+        return view;
     }
 
     @Override
@@ -37,4 +52,10 @@ public class GameFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
     }
+
+    private void buildBoard(){
+        Game game = Shared.engine.getActiveGame();
+
+    }
+
 }
