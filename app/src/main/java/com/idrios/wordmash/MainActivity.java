@@ -16,30 +16,33 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        // Get or create saved states
         Shared.context = getApplicationContext();
         Shared.engine = Engine.getInstance();
         Shared.eventBus = EventBus.getInstance();
 
+        // Load main activity layout
+        setContentView(R.layout.activity_main);
+
+        // Start engine
         Shared.activity = this;
         Shared.engine.start();
 
-        Shared.eventBus.notify(new GameStartedEvent());
+        // Launch menu screen
+        ScreenController.getInstance().openScreen(Screen.MENU);
 
     }
 
     @Override
     protected void onDestroy(){
-        //TODO stop the engine from running.
         Shared.engine.stop();
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed(){
-        //TODO onBackPressedEvent
-
+        // TODO set this to cycle through previous screens or do something else
+        super.onBackPressed();
     }
-
 }
