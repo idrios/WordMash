@@ -1,6 +1,7 @@
 package com.idrios.wordmash.events;
 
-import com.idrios.wordmash.events.engine.GameStartedEvent;
+import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.StartGameEvent;
 import com.idrios.wordmash.events.ui.LetterTappedEvent;
 
 /**
@@ -11,8 +12,10 @@ import com.idrios.wordmash.events.ui.LetterTappedEvent;
 
 public interface EventObserver {
     //TODO include other event types
+    void onEvent(StartGameEvent event);
+
     void onEvent(LetterTappedEvent event);
 
-    void onEvent(GameStartedEvent event);
+    void onEvent(EndGameEvent event);
 
 }

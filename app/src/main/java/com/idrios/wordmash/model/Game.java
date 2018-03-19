@@ -10,4 +10,8 @@ public class Game {
     public BoardConfiguration boardConfiguration;
     public BoardArrangement boardArrangement;
 
+    public Game(BoardConfiguration bConfig){
+        this.boardConfiguration = bConfig;
+    }
+
 }

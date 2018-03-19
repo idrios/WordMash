@@ -1,13 +1,19 @@
 package com.idrios.wordmash.engine;
 
+import android.annotation.SuppressLint;
+
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.events.EventObserverAdapter;
-import com.idrios.wordmash.events.engine.GameStartedEvent;
+import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.StartGameEvent;
 import com.idrios.wordmash.events.ui.LetterTappedEvent;
 import com.idrios.wordmash.model.BoardArrangement;
 import com.idrios.wordmash.model.BoardConfiguration;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.engine.ScreenController.Screen;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by idrios on 2/16/18.
@@ -31,31 +37,50 @@ public class Engine extends EventObserverAdapter {
     }
 
     public void start(){
+        Shared.eventBus.listen(StartGameEvent.TYPE, this);
         Shared.eventBus.listen(LetterTappedEvent.TYPE, this);
+        Shared.eventBus.listen(EndGameEvent.TYPE, this);
     }
 
     public void stop(){
         mPlayingGame = null;
+        Shared.eventBus.unlisten(StartGameEvent.TYPE, this);
         Shared.eventBus.unlisten(LetterTappedEvent.TYPE, this);
+        Shared.eventBus.unlisten(EndGameEvent.TYPE, this);
     }
 
     @Override
-    public void onEvent(GameStartedEvent event){
-        mPlayingGame = new Game();
-        mPlayingGame.boardConfiguration = new BoardConfiguration();
+    public void onEvent(StartGameEvent event){
+        mPlayingGame = new Game(new BoardConfiguration(3, 6));
 
         //arrange the board
         arrangeBoard();
 
         //start the screen
         mScreenController.openScreen(Screen.GAME);
+    }
 
+    @Override
+    public void onEvent(EndGameEvent event){
+        //TODO is this correct?
+        mScreenController.openScreen(Screen.MENU);
+        mPlayingGame = null;
     }
 
 
     public void arrangeBoard(){
         BoardConfiguration boardConfiguration = mPlayingGame.boardConfiguration;
-        BoardArrangement boardArrangement = new BoardArrangement();
+
+        //TODO initialize the hashmap better
+        Map<Integer, String> arr = new HashMap<>();
+        arr.put(0, "m");
+        arr.put(1, "y");
+        arr.put(2, "w");
+        arr.put(3, "o");
+        arr.put(4, "r");
+        arr.put(5, "d");
+
+        BoardArrangement boardArrangement = new BoardArrangement(arr);
         //TODO arrange the board here
 
         mPlayingGame.boardArrangement = boardArrangement;

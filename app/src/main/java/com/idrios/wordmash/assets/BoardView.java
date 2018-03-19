@@ -1,6 +1,8 @@
 package com.idrios.wordmash.assets;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -132,6 +134,19 @@ public class BoardView extends LinearLayout {
         mViewReference.put(id, tileView);
 
         //TODO load images via bitmap
+        new AsyncTask<Void, Void, Bitmap>(){
+
+            @Override
+            protected Bitmap doInBackground(Void... params){
+                return mBoardArrangement.getTileBitmap(id, mSize);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap result){
+                tileView.setTileImage(result);
+            }
+        }.execute();
+
 
         //TODO set onclicklistener
 

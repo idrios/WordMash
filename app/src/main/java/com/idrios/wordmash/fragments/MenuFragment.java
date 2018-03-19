@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.idrios.wordmash.R;
+import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.engine.ScreenController;
 import com.idrios.wordmash.engine.ScreenController.Screen;
+import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.StartGameEvent;
 
 
 public class MenuFragment extends Fragment {
@@ -36,7 +39,7 @@ public class MenuFragment extends Fragment {
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScreenController.getInstance().openScreen(Screen.GAME);
+                Shared.eventBus.notify(new StartGameEvent());
             }
         });
         return view;

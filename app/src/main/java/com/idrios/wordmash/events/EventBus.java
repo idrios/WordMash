@@ -20,6 +20,10 @@ public class EventBus {
     private final Map<String, List<EventObserver>> events = Collections.synchronizedMap(new HashMap<String, List<EventObserver>>());
     private Object obj = new Object();
 
+    private EventBus(){
+        mHandler = new Handler();
+    }
+
     public static EventBus getInstance(){
         if (mInstance == null){
             mInstance = new EventBus();

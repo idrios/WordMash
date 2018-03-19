@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.assets.BoardView;
@@ -37,8 +38,11 @@ public class GameFragment extends BaseFragment {
         FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.game_container);
         frameLayout.addView(mBoardView);
 
-        //build board
-        buildBoard();
+        //make board
+        makeBoard();
+
+        //TODO get rid of toast
+        Toast.makeText(Shared.context, "Game Loaded", Toast.LENGTH_SHORT).show();
 
         return view;
     }
@@ -53,8 +57,9 @@ public class GameFragment extends BaseFragment {
         super.onDetach();
     }
 
-    private void buildBoard(){
+    private void makeBoard(){
         Game game = Shared.engine.getActiveGame();
+        mBoardView.setBoard(game);
 
     }
 

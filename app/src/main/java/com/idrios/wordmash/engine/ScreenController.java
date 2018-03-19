@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ScreenController {
 
+    //TODO figure out why isn't mFragmentManager static?
     private static ScreenController mInstance = null;
     private static List<Screen> openedScreens = new ArrayList<Screen>();
     private FragmentManager mFragmentManager;
@@ -39,6 +40,11 @@ public class ScreenController {
 
     public void openScreen(Screen screen){
         //TODO check for special cases (e.g. if opening a screen creates 2 screens of a game, remove one of the game screens)
+        for(Screen sc : openedScreens){
+            if(sc == screen){
+                openedScreens.remove(sc);
+            }
+        }
         mFragmentManager = Shared.activity.getSupportFragmentManager();
         Fragment fragment = getFragment(screen);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
@@ -49,6 +55,17 @@ public class ScreenController {
 
     public boolean onBack(){
         //TODO return to the previous screen and remove the now returned-from screen.
+        if(openedScreens.size() > 0){
+            Screen screenToRemove = openedScreens.get(openedScreens.size() - 1);
+            openedScreens.remove(openedScreens.size() - 1);
+            if(openedScreens.size() == 0){
+                return true;
+            }
+            Screen screen = openedScreens.get(openedScreens.size() - 1);
+            openedScreens.remove(openedScreens.size() - 1);
+            openScreen(screen);
+            return false;
+        }
         return true;
     }
 
