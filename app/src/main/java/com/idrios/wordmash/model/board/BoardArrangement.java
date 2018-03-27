@@ -1,4 +1,4 @@
-package com.idrios.wordmash.model;
+package com.idrios.wordmash.model.board;
 
 import android.graphics.Bitmap;
 

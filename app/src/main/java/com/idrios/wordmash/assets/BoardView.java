@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.idrios.wordmash.R;
-import com.idrios.wordmash.model.BoardArrangement;
+import com.idrios.wordmash.model.board.BoardArrangement;
 import com.idrios.wordmash.model.BoardConfiguration;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.utils.Utils;

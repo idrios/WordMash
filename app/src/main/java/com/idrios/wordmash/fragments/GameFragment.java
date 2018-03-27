@@ -35,6 +35,7 @@ public class GameFragment extends BaseFragment {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.fragment_game, container, false);
 
         mBoardView = BoardView.fromXml(getActivity().getApplicationContext(), view);
+        #3 CHECK THAT BOARDVIEW IS ACTUALLY LOADED FORM XML AND LOOK AT WHAT IT LOOKS LIKE
         FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.game_container);
         frameLayout.addView(mBoardView);
 
