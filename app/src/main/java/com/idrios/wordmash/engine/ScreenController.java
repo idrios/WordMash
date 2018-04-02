@@ -12,7 +12,17 @@ import com.idrios.wordmash.fragments.MenuFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/**        for(Screen sc : openedScreens){
+            if(sc == screen){
+                openedScreens.remove(sc);
+            }
+        }
+        mFragmentManager = Shared.activity.getSupportFragmentManager();
+        Fragment fragment = getFragment(screen);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+        openedScreens.add(screen);
  * Decides which screen user is on -- whether it's the starting screen, a menu screen, or a game screen.
  */
 

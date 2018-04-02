@@ -7,19 +7,26 @@
     <LinearLayout
         android:id="@+id/game_board"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="TEST" />
+            android:layout_height="70dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TEST"
+                />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/game_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+        </FrameLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/game_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-    </FrameLayout>
 </FrameLayout>

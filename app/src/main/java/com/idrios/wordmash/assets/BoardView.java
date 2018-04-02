@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.model.board.BoardArrangement;
-import com.idrios.wordmash.model.BoardConfiguration;
+import com.idrios.wordmash.model.GameConfiguration;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.utils.Utils;
 
@@ -45,7 +45,7 @@ public class BoardView extends LinearLayout {
 
     //Layout information
     private BoardArrangement mBoardArrangement;
-    private BoardConfiguration mBoardConfiguration;
+    private GameConfiguration mGameConfiguration;
     private LinearLayout.LayoutParams mTileLayoutParams;
 
     //Dimensions
@@ -85,7 +85,7 @@ public class BoardView extends LinearLayout {
 
     public void setBoard(Game game){
         // Load board configuration and arrangement
-        mBoardConfiguration = game.boardConfiguration;
+        mGameConfiguration = game.gameConfiguration;
         mBoardArrangement = game.boardArrangement;
 
         // calculate tile width and height
@@ -93,14 +93,14 @@ public class BoardView extends LinearLayout {
         int tileMarginHorizontal = getResources().getDimensionPixelSize(R.dimen.letter_horizontal_margin);
         int tileMarginRight = getResources().getDimensionPixelSize(R.dimen.letter_right_margin);
         int width = mScreenWidth - tileMarginLeft - tileMarginRight;
-        mSize = Math.round((width - ((mBoardConfiguration.maxWordSize - 1)*tileMarginHorizontal)) / mBoardConfiguration.maxWordSize);
+        mSize = Math.round((width - ((mGameConfiguration.maxWordSize - 1)*tileMarginHorizontal)) / mGameConfiguration.maxWordSize);
 
         // calculate positions of tiles
         mBoardCenterX = mScreenWidth / 2; // TODO make this a correct calculation
         mBoardCenterY = mScreenHeight / 2; // TODO make this a correct calculation
-        mTileCoordsX =  new int[mBoardConfiguration.maxWordSize];
+        mTileCoordsX =  new int[mGameConfiguration.maxWordSize];
         for(int i = 0; i < mTileCoordsX.length; i++){
-            mTileCoordsX[i] = (i-((mBoardConfiguration.maxWordSize-1)/2))*(mSize + tileMarginHorizontal);
+            mTileCoordsX[i] = (i-((mGameConfiguration.maxWordSize-1)/2))*(mSize + tileMarginHorizontal);
         }
         mTileCoordsY = new int[2];
         for(int i = 0; i < mTileCoordsY.length; i++){
@@ -120,7 +120,7 @@ public class BoardView extends LinearLayout {
         // TODO give correct layoutParams to tiles
         LinearLayout linearLayout = new LinearLayout(getContext());
 
-        for(int tileNum = 1; tileNum < mBoardConfiguration.maxWordSize+1; tileNum++ ){
+        for(int tileNum = 1; tileNum < mGameConfiguration.maxWordSize+1; tileNum++ ){
             addTile(tileNum, linearLayout);
         }
 

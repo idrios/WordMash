@@ -5,8 +5,8 @@ import com.idrios.wordmash.events.EventObserverAdapter;
 import com.idrios.wordmash.events.engine.EndGameEvent;
 import com.idrios.wordmash.events.engine.StartGameEvent;
 import com.idrios.wordmash.events.ui.LetterTappedEvent;
+import com.idrios.wordmash.model.GameConfiguration;
 import com.idrios.wordmash.model.board.BoardArrangement;
-import com.idrios.wordmash.model.BoardConfiguration;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.engine.ScreenController.Screen;
 
@@ -50,7 +50,7 @@ public class Engine extends EventObserverAdapter {
     @Override
     public void onEvent(StartGameEvent event){
         //configure a game
-        mPlayingGame = new Game(new BoardConfiguration(3, 6));
+        mPlayingGame = new Game(new GameConfiguration(3, 6));
 
         //arrange the board
         arrangeBoard();
@@ -68,10 +68,9 @@ public class Engine extends EventObserverAdapter {
 
 
     public void arrangeBoard(){
-        BoardConfiguration boardConfiguration = mPlayingGame.boardConfiguration;
+        GameConfiguration GameConfiguration = mPlayingGame.gameConfiguration;
 
         //TODO initialize the hashmap better
-        #2 CHANGE THIS SO THE ARRAY IS FILLED WITH CHARACTERS BASED ON THE WORD IN CONFIG FILE
         Map<Integer, String> arr = new HashMap<>();
         arr.put(0, "m");
         arr.put(1, "y");

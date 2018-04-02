@@ -10,12 +10,12 @@ import com.idrios.wordmash.model.wordlist.WordMap;
 
 public class Game {
 
-    public gameConfiguration gameConfiguration;
+    public GameConfiguration gameConfiguration;
     public BoardArrangement boardArrangement;
     public WordMap words;
 
 
-    public Game(gameConfiguration gConfig){
+    public Game(GameConfiguration gConfig){
         this.gameConfiguration = gConfig;
     }
 
