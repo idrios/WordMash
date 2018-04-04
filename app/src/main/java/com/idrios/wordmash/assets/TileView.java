@@ -19,6 +19,7 @@ import com.idrios.wordmash.R;
 public class TileView extends FrameLayout {
 
     private ImageView mTileImage;
+    private Character mLetter;
 
     public TileView(Context context){
         this(context, null);
@@ -26,6 +27,13 @@ public class TileView extends FrameLayout {
 
     public TileView(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
+    }
+
+    public void setLetter(Character letter){
+        mLetter = letter;
+    }
+    public Character getLetter(){
+        return mLetter;
     }
 
     public static TileView fromXml(Context context, ViewGroup parent){

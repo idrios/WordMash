@@ -1,14 +1,20 @@
 package com.idrios.wordmash.assets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.idrios.wordmash.R;
+import com.idrios.wordmash.common.Shared;
+import com.idrios.wordmash.events.ui.LetterTappedEvent;
 import com.idrios.wordmash.model.board.BoardArrangement;
 import com.idrios.wordmash.model.GameConfiguration;
 import com.idrios.wordmash.model.Game;
@@ -46,6 +52,7 @@ public class BoardView extends LinearLayout {
     //Layout information
     private BoardArrangement mBoardArrangement;
     private GameConfiguration mGameConfiguration;
+    private LinearLayout.LayoutParams mRowLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private LinearLayout.LayoutParams mTileLayoutParams;
 
     //Dimensions
@@ -56,8 +63,10 @@ public class BoardView extends LinearLayout {
     private int mSize;
     private int[] mTileCoordsX;
     private int[] mTileCoordsY;
-    private Map<Integer, TileView> mViewReference;
 
+    //Board Info
+    private Character[] mLetters;
+    private Map<Integer, TileView> mViewReference;
 
     public BoardView(Context context){
         this(context, null);
@@ -117,13 +126,18 @@ public class BoardView extends LinearLayout {
     public void buildBoard(){
         // TODO upload WordMash background
 
+        //mLetters = new Character[]{'c', 'h', 'e', 'r', 'r', 'y'};
+
         // TODO give correct layoutParams to tiles
         LinearLayout linearLayout = new LinearLayout(getContext());
 
-        for(int tileNum = 1; tileNum < mGameConfiguration.maxWordSize+1; tileNum++ ){
+        for(int tileNum = 0; tileNum < mGameConfiguration.maxWordSize; tileNum++ ){
             addTile(tileNum, linearLayout);
         }
 
+        // add board to fragment view
+        addView(linearLayout, mRowLayoutParams);
+        linearLayout.setClipChildren(false);
     }
 
     private void addTile(final int id, ViewGroup parent){
@@ -133,7 +147,6 @@ public class BoardView extends LinearLayout {
         parent.setClipChildren(false);
         mViewReference.put(id, tileView);
 
-        //TODO load images via bitmap
         new AsyncTask<Void, Void, Bitmap>(){
 
             @Override
@@ -147,8 +160,14 @@ public class BoardView extends LinearLayout {
             }
         }.execute();
 
+        tileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Shared.eventBus.notify(new LetterTappedEvent(id));
+            }
+        });
 
-        //TODO set onclicklistener
+
 
         //TODO give give animations
     }

@@ -14,7 +14,6 @@ public class Game {
     public BoardArrangement boardArrangement;
     public WordMap words;
 
-
     public Game(GameConfiguration gConfig){
         this.gameConfiguration = gConfig;
     }

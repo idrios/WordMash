@@ -1,5 +1,7 @@
 package com.idrios.wordmash.engine;
 
+import android.widget.Toast;
+
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.events.EventObserverAdapter;
 import com.idrios.wordmash.events.engine.EndGameEvent;
@@ -10,7 +12,9 @@ import com.idrios.wordmash.model.board.BoardArrangement;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.engine.ScreenController.Screen;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,20 +70,37 @@ public class Engine extends EventObserverAdapter {
         mPlayingGame = null;
     }
 
+    @Override
+    public void onEvent(LetterTappedEvent event){
+        Toast.makeText(Shared.context, "WOOOOOO", Toast.LENGTH_SHORT).show();
+    }
 
     public void arrangeBoard(){
-        GameConfiguration GameConfiguration = mPlayingGame.gameConfiguration;
-
+        GameConfiguration gameConfiguration = mPlayingGame.gameConfiguration;
         //TODO initialize the hashmap better
         Map<Integer, String> arr = new HashMap<>();
-        arr.put(0, "m");
-        arr.put(1, "y");
-        arr.put(2, "w");
-        arr.put(3, "o");
+        arr.put(0, "c");
+        arr.put(1, "h");
+        arr.put(2, "e");
+        arr.put(3, "r");
         arr.put(4, "r");
-        arr.put(5, "d");
-
+        arr.put(5, "y");
         BoardArrangement boardArrangement = new BoardArrangement(arr);
+
+        //each tile is labeled with its id 0-5
+        List<Integer> ids = new ArrayList<>();
+        for(int i = 0; i < gameConfiguration.maxWordSize; i++){
+            ids.add(i);
+        }
+
+        //TODO Collections.shuffle(ids)
+
+        boardArrangement.tileUrls = new HashMap<Integer, String>();
+        int j = 0;
+        for(int i = 0; i < arr.size(); i++){
+            boardArrangement.tileUrls.put(ids.get(i), "letter_" + arr.get(i).toString().toLowerCase());
+        }
+
         //TODO arrange the board here
 
         mPlayingGame.boardArrangement = boardArrangement;

@@ -27,8 +27,7 @@ public class BoardArrangement {
 
     public Bitmap getTileBitmap(int id, int size){
         String string = tileUrls.get(id);
-
-        String drawableResourceName = "letter_"; //TODO this is hard-coded, fix this
+        String drawableResourceName = string; //TODO this is hard-coded, fix this
         int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
 
         Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);

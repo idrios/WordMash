@@ -62,9 +62,9 @@ public class GameFragment extends BaseFragment {
 
     private void makeBoard(){
         Game game = Shared.engine.getActiveGame();
-        //TODO uncomment this mBoardView.setBoard(game);
+        mBoardView.setBoard(game);
 
-        /** This is debug code */
+        /** This is debug code
         LinearLayout linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
@@ -80,7 +80,7 @@ public class GameFragment extends BaseFragment {
         });
         mBoardView.addView(tileView);
 
-        /** fix it */
+        fix it */
 
     }
 
