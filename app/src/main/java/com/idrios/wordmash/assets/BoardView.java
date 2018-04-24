@@ -58,9 +58,8 @@ public class BoardView extends LinearLayout {
     //Dimensions
     private int mScreenWidth;
     private int mScreenHeight;
-    private int mBoardCenterX;
-    private int mBoardCenterY;
-    private int mSize;
+    private int mSizeTile;
+    private int mSizeLetter;
     private int[] mTileCoordsX;
     private int[] mTileCoordsY;
 
@@ -102,21 +101,20 @@ public class BoardView extends LinearLayout {
         int tileMarginHorizontal = getResources().getDimensionPixelSize(R.dimen.letter_horizontal_margin);
         int tileMarginRight = getResources().getDimensionPixelSize(R.dimen.letter_right_margin);
         int width = mScreenWidth - tileMarginLeft - tileMarginRight;
-        mSize = Math.round((width - ((mGameConfiguration.maxWordSize - 1)*tileMarginHorizontal)) / mGameConfiguration.maxWordSize);
+        mSizeTile = Math.round((width - ((mGameConfiguration.maxWordSize - 1)*tileMarginHorizontal)) / mGameConfiguration.maxWordSize);
+        mSizeLetter = (int)Math.round(mSizeTile * 0.95);
 
         // calculate positions of tiles
-        mBoardCenterX = mScreenWidth / 2; // TODO make this a correct calculation
-        mBoardCenterY = mScreenHeight / 2; // TODO make this a correct calculation
         mTileCoordsX =  new int[mGameConfiguration.maxWordSize];
         for(int i = 0; i < mTileCoordsX.length; i++){
-            mTileCoordsX[i] = (i-((mGameConfiguration.maxWordSize-1)/2))*(mSize + tileMarginHorizontal);
+            mTileCoordsX[i] = (i-((mGameConfiguration.maxWordSize-1)/2))*(mSizeTile + tileMarginHorizontal);
         }
         mTileCoordsY = new int[2];
         for(int i = 0; i < mTileCoordsY.length; i++){
-            mTileCoordsY[i] = (i-(1/2))*(mSize + (3*tileMarginHorizontal)); // Arbitrarily chosen the vertical tile margin to be 3x the horizontal tile margin
+            mTileCoordsY[i] = (i-(1/2))*(mSizeTile + (3*tileMarginHorizontal)); // Arbitrarily chosen the vertical tile margin to be 3x the horizontal tile margin
         }
 
-        mTileLayoutParams = new LinearLayout.LayoutParams(mSize, mSize);
+        mTileLayoutParams = new LinearLayout.LayoutParams(mSizeTile, mSizeTile);
         // TODO update mTileLayoutParams to be correct
 
         buildBoard();
@@ -151,7 +149,7 @@ public class BoardView extends LinearLayout {
 
             @Override
             protected Bitmap doInBackground(Void... params){
-                return mBoardArrangement.getTileBitmap(id, mSize);
+                return mBoardArrangement.getLetterTileBitmap(id, mSizeTile);
             }
 
             @Override

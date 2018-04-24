@@ -1,4 +1,4 @@
-package com.idrios.wordmash.utils;
+package com.idrios.wordmash.model.wordlist;
 
 import android.content.Context;
 

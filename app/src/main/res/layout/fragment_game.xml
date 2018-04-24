@@ -10,15 +10,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/bank_container"
             android:layout_width="match_parent"
-            android:layout_height="70dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="TEST"
-                />
-        </RelativeLayout>
+            android:layout_height="300dp"
+            android:layout_weight="1"> <!--TODO make this programmatic-->
+        </FrameLayout>
 
         <FrameLayout
             android:id="@+id/game_container"

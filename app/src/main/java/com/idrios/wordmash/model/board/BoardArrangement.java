@@ -18,15 +18,15 @@ public class BoardArrangement {
 
     // something for layout of obtained/unobtained words
     // something for mapping of tile to position on board
-    public Map<Integer, String> tileUrls;
+    public Map<Integer, String> letterUrls;
     public int boardPositions;
 
-    public BoardArrangement(Map<Integer, String> tileUrls){
-        this.tileUrls = tileUrls;
+    public BoardArrangement(Map<Integer, String> letterUrls){
+        this.letterUrls = letterUrls;
     }
 
-    public Bitmap getTileBitmap(int id, int size){
-        String string = tileUrls.get(id);
+    public Bitmap getLetterTileBitmap(int id, int size){
+        String string = letterUrls.get(id);
         String drawableResourceName = string; //TODO this is hard-coded, fix this
         int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
 

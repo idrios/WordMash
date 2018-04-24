@@ -13,9 +13,15 @@ public class Game {
     public GameConfiguration gameConfiguration;
     public BoardArrangement boardArrangement;
     public WordMap words;
+    public boolean ready;
 
     public Game(GameConfiguration gConfig){
         this.gameConfiguration = gConfig;
+        loadWordMap();
+    }
+
+    private void loadWordMap(){
+
     }
 
 }

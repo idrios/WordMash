@@ -13,15 +13,23 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.idrios.wordmash.R;
+import com.idrios.wordmash.assets.BankView;
 import com.idrios.wordmash.assets.BoardView;
 import com.idrios.wordmash.assets.TileView;
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.model.Game;
 
+/** The fragment loads all the viewable objects, but is not responsible for the programming behind
+ * them (i.e. the bank and board are loaded from XML but the content in the bank and board are
+ * determined in the engine, and stored in the 'Game' rather than here or in bank or board).
+ *
+ */
+
 
 public class GameFragment extends BaseFragment {
 
     private BoardView mBoardView;
+    private BankView mBankView;
 
     public GameFragment() {
 
@@ -37,12 +45,16 @@ public class GameFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.fragment_game, container, false);
 
+        //Make board
         mBoardView = BoardView.fromXml(getActivity().getApplicationContext(), view);
-        FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.game_container);
-        frameLayout.addView(mBoardView);
-
-        //make board
+        FrameLayout boardContainer = (FrameLayout) view.findViewById(R.id.game_container);
+        boardContainer.addView(mBoardView);
         makeBoard();
+
+        //Make bank
+        mBankView = BankView.fromXml(getActivity().getApplicationContext(), view);
+        FrameLayout bankContainer = (FrameLayout) view.findViewById(R.id.bank_container);
+        bankContainer.addView(mBankView);
 
         //TODO get rid of toast
         Toast.makeText(Shared.context, "Game Loaded", Toast.LENGTH_SHORT).show();
@@ -63,25 +75,6 @@ public class GameFragment extends BaseFragment {
     private void makeBoard(){
         Game game = Shared.engine.getActiveGame();
         mBoardView.setBoard(game);
-
-        /** This is debug code
-        LinearLayout linearLayout = new LinearLayout(getContext());
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        linearLayout.setGravity(Gravity.CENTER);
-
-        TileView tileView = TileView.fromXml(getContext(), linearLayout);
-        tileView.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-        tileView.setTileImage(game.boardArrangement.getTileBitmap(1, 100));
-        tileView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Shared.context, "CLICKED SOMETHING", Toast.LENGTH_SHORT).show();
-            }
-        });
-        mBoardView.addView(tileView);
-
-        fix it */
-
     }
 
 }

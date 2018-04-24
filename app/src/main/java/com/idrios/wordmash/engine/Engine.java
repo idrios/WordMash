@@ -2,6 +2,7 @@ package com.idrios.wordmash.engine;
 
 import android.widget.Toast;
 
+import com.idrios.wordmash.assets.TileView;
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.events.EventObserverAdapter;
 import com.idrios.wordmash.events.engine.EndGameEvent;
@@ -56,6 +57,9 @@ public class Engine extends EventObserverAdapter {
         //configure a game
         mPlayingGame = new Game(new GameConfiguration(3, 6));
 
+        //Make WordMap
+
+
         //arrange the board
         arrangeBoard();
 
@@ -72,19 +76,24 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(LetterTappedEvent event){
+        //TODO make an actual event
         Toast.makeText(Shared.context, "WOOOOOO", Toast.LENGTH_SHORT).show();
+        int tileId = event.id;
+        BoardArrangement boardArrangement = getActiveGame().boardArrangement;
+
+
     }
 
     public void arrangeBoard(){
         GameConfiguration gameConfiguration = mPlayingGame.gameConfiguration;
         //TODO initialize the hashmap better
         Map<Integer, String> arr = new HashMap<>();
-        arr.put(0, "c");
-        arr.put(1, "h");
-        arr.put(2, "e");
-        arr.put(3, "r");
-        arr.put(4, "r");
-        arr.put(5, "y");
+        arr.put(0, "f");
+        arr.put(1, "r");
+        arr.put(2, "i");
+        arr.put(3, "e");
+        arr.put(4, "n");
+        arr.put(5, "d");
         BoardArrangement boardArrangement = new BoardArrangement(arr);
 
         //each tile is labeled with its id 0-5
@@ -95,10 +104,10 @@ public class Engine extends EventObserverAdapter {
 
         //TODO Collections.shuffle(ids)
 
-        boardArrangement.tileUrls = new HashMap<Integer, String>();
+        boardArrangement.letterUrls = new HashMap<Integer, String>();
         int j = 0;
         for(int i = 0; i < arr.size(); i++){
-            boardArrangement.tileUrls.put(ids.get(i), "letter_" + arr.get(i).toString().toLowerCase());
+            boardArrangement.letterUrls.put(ids.get(i), "letter_" + arr.get(i).toString().toLowerCase());
         }
 
         //TODO arrange the board here

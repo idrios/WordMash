@@ -1,13 +1,11 @@
 package com.idrios.wordmash.model.wordlist;
 
-import com.idrios.wordmash.utils.HashmapHelper;
-
 import java.util.HashMap;
 
 /**
  * Created by idrios on 10/23/17.
- * Key containing a letter, the number of points associated with it, a reference to the
- * parent hashmap, and a boolean determining if this letter completes a valid word or not
+ * Data Structure to ease traversal and discovery of new words
+ * A better implementation would just turn the different words into json files and read from those
  */
 
 public class MapNode {

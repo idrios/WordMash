@@ -11,21 +11,28 @@ import android.widget.ImageView;
 import com.idrios.wordmash.R;
 
 /**
- * Created by idrios on 2/17/18.
- * The TileView is the frame that the letters move around from. This never moves.
- *
+ * Created by idrios on 4/24/18.
+ * The LetterView is the pink orb that moves around
  */
 
-public class TileView extends FrameLayout {
+public class LetterView extends FrameLayout {
 
-    private ImageView mTileImage;
+    private ImageView mLetterImage;
+    private Character mLetter;
 
-    public TileView(Context context){
+    public LetterView(Context context){
         this(context, null);
     }
 
-    public TileView(Context context, AttributeSet attributeSet){
+    public LetterView(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
+    }
+
+    public void setLetter(Character letter){
+        mLetter = letter;
+    }
+    public Character getLetter(){
+        return mLetter;
     }
 
     public static TileView fromXml(Context context, ViewGroup parent){
@@ -35,15 +42,16 @@ public class TileView extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mTileImage = (ImageView)findViewById(R.id.image);
+        mLetterImage = (ImageView)findViewById(R.id.image);
     }
 
     public void setTileImage(Bitmap bitmap){
-        mTileImage.setImageBitmap(bitmap);
+        mLetterImage.setImageBitmap(bitmap);
     }
 
     ////////// Code for flashy animations here ///////////
-    //TODO if you want animations on the TileView, put them here.
+    //TODO Add animations for the tiles when clicked
+
 
 
 }
