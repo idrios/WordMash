@@ -17,6 +17,7 @@ import com.idrios.wordmash.R;
 
 public class LetterView extends FrameLayout {
 
+    private static final String TAG = "LetterView";
     private ImageView mLetterImage;
     private Character mLetter;
 
@@ -35,8 +36,8 @@ public class LetterView extends FrameLayout {
         return mLetter;
     }
 
-    public static TileView fromXml(Context context, ViewGroup parent){
-        return (TileView) LayoutInflater.from(context).inflate(R.layout.tile_view, parent, false);
+    public static LetterView fromXml(Context context, ViewGroup parent){
+        return (LetterView) LayoutInflater.from(context).inflate(R.layout.letter_view, parent, false);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class LetterView extends FrameLayout {
         mLetterImage = (ImageView)findViewById(R.id.image);
     }
 
-    public void setTileImage(Bitmap bitmap){
+    public void setLetterImage(Bitmap bitmap){
         mLetterImage.setImageBitmap(bitmap);
     }
 

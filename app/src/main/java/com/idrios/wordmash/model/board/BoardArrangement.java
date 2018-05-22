@@ -18,23 +18,31 @@ public class BoardArrangement {
 
     // something for layout of obtained/unobtained words
     // something for mapping of tile to position on board
+    public Map<Integer, String> tileUrls;
     public Map<Integer, String> letterUrls;
     public int boardPositions;
 
-    public BoardArrangement(Map<Integer, String> letterUrls){
+    public BoardArrangement(Map<Integer, String> letterUrls,
+                            Map<Integer, String> tileUrls){
         this.letterUrls = letterUrls;
+        this.tileUrls = tileUrls;
     }
 
-    public Bitmap getLetterTileBitmap(int id, int size){
-        String string = letterUrls.get(id);
-        String drawableResourceName = string; //TODO this is hard-coded, fix this
+    public Bitmap getTileBitmap(int id, int size){
+        String string = tileUrls.get(id);
+        String drawableResourceName = string; //TODO this can be used to choose between themes
         int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
 
         Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);
 
         return bitmap;
-
-
+    }
+    public Bitmap getLetterBitmap(int id, int size){
+        String string = letterUrls.get(id);
+        String drawableResourceName = string;
+        int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
+        Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);
+        return bitmap;
     }
 
 }

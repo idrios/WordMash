@@ -18,6 +18,7 @@ import com.idrios.wordmash.R;
 
 public class TileView extends FrameLayout {
 
+    public static final String TAG = "TileView";
     private ImageView mTileImage;
 
     public TileView(Context context){

@@ -86,15 +86,19 @@ public class Engine extends EventObserverAdapter {
 
     public void arrangeBoard(){
         GameConfiguration gameConfiguration = mPlayingGame.gameConfiguration;
+
         //TODO initialize the hashmap better
-        Map<Integer, String> arr = new HashMap<>();
-        arr.put(0, "f");
-        arr.put(1, "r");
-        arr.put(2, "i");
-        arr.put(3, "e");
-        arr.put(4, "n");
-        arr.put(5, "d");
-        BoardArrangement boardArrangement = new BoardArrangement(arr);
+        Map<Integer, String> letterArr = new HashMap<>();
+        letterArr.put(0, "f");
+        letterArr.put(1, "r");
+        letterArr.put(2, "i");
+        letterArr.put(3, "e");
+        letterArr.put(4, "n");
+        letterArr.put(5, "d");
+        Map<Integer, String> tileArr = new HashMap<>();
+        for(int i = 0; i < mPlayingGame.gameConfiguration.maxWordSize; i++){tileArr.put(i, "letter_box_single_1100.png");}
+        for(int i = mPlayingGame.gameConfiguration.maxWordSize; i < 2*mPlayingGame.gameConfiguration.maxWordSize; i++){tileArr.put(i, "letter_box_guess_single_1100.png");}
+        BoardArrangement boardArrangement = new BoardArrangement(letterArr, tileArr);
 
         //each tile is labeled with its id 0-5
         List<Integer> ids = new ArrayList<>();
@@ -105,9 +109,9 @@ public class Engine extends EventObserverAdapter {
         //TODO Collections.shuffle(ids)
 
         boardArrangement.letterUrls = new HashMap<Integer, String>();
-        int j = 0;
-        for(int i = 0; i < arr.size(); i++){
-            boardArrangement.letterUrls.put(ids.get(i), "letter_" + arr.get(i).toString().toLowerCase());
+
+        for(int i = 0; i < letterArr.size(); i++){
+            boardArrangement.letterUrls.put(ids.get(i), "letter_" + letterArr.get(i).toString().toLowerCase());
         }
 
         //TODO arrange the board here

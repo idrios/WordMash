@@ -4,8 +4,9 @@
     <!-- Board settings -->
     <dimen name="margine_top">70dp</dimen>
     <dimen name="board_padding">0dp</dimen>
-    <dimen name="letter_left_margin">5dp</dimen>
-    <dimen name="letter_horizontal_margin">10dp</dimen>
-    <dimen name="letter_right_margin">5dp</dimen>
+    <dimen name="tile_top_margin">10dp</dimen>
+    <dimen name="tile_left_margin">5dp</dimen>
+    <dimen name="tile_horizontal_margin">0dp</dimen>
+    <dimen name="tile_right_margin">5dp</dimen>
 
 </resources>
