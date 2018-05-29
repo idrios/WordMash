@@ -20,6 +20,7 @@ public class LetterView extends FrameLayout {
     private static final String TAG = "LetterView";
     private ImageView mLetterImage;
     private Character mLetter;
+    public boolean isLocked;
 
     public LetterView(Context context){
         this(context, null);

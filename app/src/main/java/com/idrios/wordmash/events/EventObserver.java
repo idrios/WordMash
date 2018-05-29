@@ -2,7 +2,7 @@ package com.idrios.wordmash.events;
 
 import com.idrios.wordmash.events.engine.EndGameEvent;
 import com.idrios.wordmash.events.engine.StartGameEvent;
-import com.idrios.wordmash.events.ui.LetterTappedEvent;
+import com.idrios.wordmash.events.engine.LetterTappedEvent;
 
 /**
  * Created by idrios on 2/16/18.

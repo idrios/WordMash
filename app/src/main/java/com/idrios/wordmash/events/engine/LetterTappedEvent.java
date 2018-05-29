@@ -1,7 +1,8 @@
-package com.idrios.wordmash.events.ui;
+package com.idrios.wordmash.events.engine;
 
 import com.idrios.wordmash.events.AbstractEvent;
 import com.idrios.wordmash.events.EventObserver;
+import com.idrios.wordmash.model.board.BoardArrangement;
 
 /**
  * Created by idrios on 2/16/18.
@@ -11,10 +12,10 @@ public class LetterTappedEvent extends AbstractEvent {
 
     public static final String TYPE = LetterTappedEvent.class.getName();
 
-    public final int id;
+    public final String word;
 
-    public LetterTappedEvent(int id){
-        this.id = id;
+    public LetterTappedEvent(String word){
+        this.word = word;
     }
 
     @Override

@@ -1,25 +1,19 @@
 package com.idrios.wordmash.assets;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.SystemClock;
-import android.os.health.SystemHealthManager;
-import android.util.ArrayMap;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.common.Shared;
-import com.idrios.wordmash.events.ui.LetterTappedEvent;
+import com.idrios.wordmash.events.engine.LetterTappedEvent;
 import com.idrios.wordmash.model.board.BoardArrangement;
 import com.idrios.wordmash.model.GameConfiguration;
 import com.idrios.wordmash.model.Game;
@@ -174,14 +168,6 @@ public class BoardView extends RelativeLayout {
             }
         }.execute();
 
-        tileView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                //Move up or down, based on position
-                Shared.eventBus.notify(new LetterTappedEvent(id));
-
-            }
-        });
         //TODO give animations
     }
 
@@ -223,26 +209,41 @@ public class BoardView extends RelativeLayout {
                 } else{
                     moveLetterUp(id);
                 }
-                Shared.eventBus.notify(new LetterTappedEvent(id));
+                String curWord = getWord(mBoardArrangement.tileToLetterMap);
+                Shared.eventBus.notify(new LetterTappedEvent(curWord));
             }
         });
-
     }
 
-    public void moveLetterUp(int letterId){
+    public boolean moveLetterUp(int letterId){
 
         // This while-loop finds which tile is not occupied by a letterView
         int tileId = -1;
+        int lastId = 0; // lock the previous letter
         for(int id = 0; id<mGameConfiguration.maxWordSize; id++){
             if(mBoardArrangement.tileToLetterMap.get(id) < 0){
                 tileId = id;
+                if(id>0) {
+                    mLetterViewReference.get(mBoardArrangement.tileToLetterMap.get(lastId)).isLocked = true;
+                }
                 break;
             }
+            lastId = id;
         }
         setLetterPosition(letterId, tileId);
+        return true;
     }
 
-    public void moveLetterDown(int letterId){
+    public boolean moveLetterDown(int letterId){
+        if(mLetterViewReference.get(letterId).isLocked){
+            return true;
+        }
+
+        // Unlock the previous letter
+        int oldTileId = mBoardArrangement.letterToTileMap.get(letterId);
+        if(oldTileId > 0) {
+            mLetterViewReference.get(mBoardArrangement.tileToLetterMap.get(oldTileId - 1)).isLocked = false;
+        }
 
         // This while-loop finds which tile is not occupied by a letterView
         int tileId = -1;
@@ -254,6 +255,7 @@ public class BoardView extends RelativeLayout {
         }
 
         setLetterPosition(letterId, tileId);
+        return true;
     }
 
     //TODO: move letters to chosen tileId
@@ -311,6 +313,17 @@ public class BoardView extends RelativeLayout {
         }.execute();
 
 
+    }
+
+    public String getWord(Map<Integer, Integer> tileToLetterMap){
+        String s = "";
+        for(int i = 0; i<mGameConfiguration.maxWordSize; i++){
+            if(tileToLetterMap.get(i) < 0){
+                return s;
+            }
+            s+=mLetterViewReference.get(tileToLetterMap.get(i)).getLetter();
+        }
+        return s;
     }
 
     public static Bitmap getTileBitmap(int row, int size){

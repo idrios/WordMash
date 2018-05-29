@@ -2,21 +2,14 @@ package com.idrios.wordmash.engine;
 
 import android.widget.Toast;
 
-import com.idrios.wordmash.assets.TileView;
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.events.EventObserverAdapter;
 import com.idrios.wordmash.events.engine.EndGameEvent;
 import com.idrios.wordmash.events.engine.StartGameEvent;
-import com.idrios.wordmash.events.ui.LetterTappedEvent;
+import com.idrios.wordmash.events.engine.LetterTappedEvent;
 import com.idrios.wordmash.model.GameConfiguration;
-import com.idrios.wordmash.model.board.BoardArrangement;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.engine.ScreenController.Screen;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by idrios on 2/16/18.
@@ -80,8 +73,8 @@ public class Engine extends EventObserverAdapter {
     @Override
     public void onEvent(LetterTappedEvent event){
         //TODO make an actual event
-        Toast.makeText(Shared.context, "ID: " + event.id, Toast.LENGTH_SHORT).show();
-        int tileId = event.id;
+        Toast.makeText(Shared.context, event.word, Toast.LENGTH_SHORT).show();
+
     }
 
     public Game getActiveGame() {

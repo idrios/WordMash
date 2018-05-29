@@ -1,27 +1,18 @@
 package com.idrios.wordmash.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.assets.BankView;
 import com.idrios.wordmash.assets.BoardView;
-import com.idrios.wordmash.assets.TileView;
 import com.idrios.wordmash.common.Shared;
-import com.idrios.wordmash.events.Event;
-import com.idrios.wordmash.events.ui.LetterTappedEvent;
 import com.idrios.wordmash.model.Game;
-import com.idrios.wordmash.model.GameConfiguration;
-import com.idrios.wordmash.model.board.BoardArrangement;
 
 /** The fragment loads all the viewable objects, but is not responsible for the programming behind
  * them (i.e. the bank and board are loaded from XML but the content in the bank and board are
