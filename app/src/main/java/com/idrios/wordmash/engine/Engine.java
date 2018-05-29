@@ -54,14 +54,17 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(StartGameEvent event){
+
+        //TODO set the wordmap in the game configuration
         //configure a game
         mPlayingGame = new Game(new GameConfiguration(3, 6));
 
         //Make WordMap
 
 
-        //arrange the board
-        arrangeBoard();
+        //TODO programmatically set the word
+        //set up the game
+        mPlayingGame.gameConfiguration.setWord("succes");
 
         //load the screen
         mScreenController.openScreen(Screen.GAME);
@@ -77,47 +80,8 @@ public class Engine extends EventObserverAdapter {
     @Override
     public void onEvent(LetterTappedEvent event){
         //TODO make an actual event
-        Toast.makeText(Shared.context, "WOOOOOO", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Shared.context, "ID: " + event.id, Toast.LENGTH_SHORT).show();
         int tileId = event.id;
-        BoardArrangement boardArrangement = getActiveGame().boardArrangement;
-
-
-    }
-
-    public void arrangeBoard(){
-        GameConfiguration gameConfiguration = mPlayingGame.gameConfiguration;
-
-        //TODO initialize the hashmap better
-        Map<Integer, String> letterArr = new HashMap<>();
-        letterArr.put(0, "f");
-        letterArr.put(1, "r");
-        letterArr.put(2, "i");
-        letterArr.put(3, "e");
-        letterArr.put(4, "n");
-        letterArr.put(5, "d");
-        Map<Integer, String> tileArr = new HashMap<>();
-        for(int i = 0; i < mPlayingGame.gameConfiguration.maxWordSize; i++){tileArr.put(i, "letter_box_single_1100.png");}
-        for(int i = mPlayingGame.gameConfiguration.maxWordSize; i < 2*mPlayingGame.gameConfiguration.maxWordSize; i++){tileArr.put(i, "letter_box_guess_single_1100.png");}
-        BoardArrangement boardArrangement = new BoardArrangement(letterArr, tileArr);
-
-        //each tile is labeled with its id 0-5
-        List<Integer> ids = new ArrayList<>();
-        for(int i = 0; i < gameConfiguration.maxWordSize; i++){
-            ids.add(i);
-        }
-
-        //TODO Collections.shuffle(ids)
-
-        boardArrangement.letterUrls = new HashMap<Integer, String>();
-
-        for(int i = 0; i < letterArr.size(); i++){
-            boardArrangement.letterUrls.put(ids.get(i), "letter_" + letterArr.get(i).toString().toLowerCase());
-        }
-
-        //TODO arrange the board here
-
-        mPlayingGame.boardArrangement = boardArrangement;
-        return;
     }
 
     public Game getActiveGame() {

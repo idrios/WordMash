@@ -17,7 +17,11 @@ import com.idrios.wordmash.assets.BankView;
 import com.idrios.wordmash.assets.BoardView;
 import com.idrios.wordmash.assets.TileView;
 import com.idrios.wordmash.common.Shared;
+import com.idrios.wordmash.events.Event;
+import com.idrios.wordmash.events.ui.LetterTappedEvent;
 import com.idrios.wordmash.model.Game;
+import com.idrios.wordmash.model.GameConfiguration;
+import com.idrios.wordmash.model.board.BoardArrangement;
 
 /** The fragment loads all the viewable objects, but is not responsible for the programming behind
  * them (i.e. the bank and board are loaded from XML but the content in the bank and board are
@@ -76,5 +80,6 @@ public class GameFragment extends BaseFragment {
         Game game = Shared.engine.getActiveGame();
         mBoardView.setBoard(game);
     }
+
 
 }
