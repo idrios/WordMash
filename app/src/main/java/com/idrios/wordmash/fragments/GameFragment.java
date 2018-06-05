@@ -14,6 +14,8 @@ import com.idrios.wordmash.assets.BoardView;
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.model.Game;
 
+import java.util.HashMap;
+
 /** The fragment loads all the viewable objects, but is not responsible for the programming behind
  * them (i.e. the bank and board are loaded from XML but the content in the bank and board are
  * determined in the engine, and stored in the 'Game' rather than here or in bank or board).
@@ -40,19 +42,24 @@ public class GameFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.fragment_game, container, false);
 
-        //Make board
-        mBoardView = BoardView.fromXml(getActivity().getApplicationContext(), view);
-        FrameLayout boardContainer = (FrameLayout) view.findViewById(R.id.game_container);
-        boardContainer.addView(mBoardView);
-        makeBoard();
 
         //Make bank
         mBankView = BankView.fromXml(getActivity().getApplicationContext(), view);
         FrameLayout bankContainer = (FrameLayout) view.findViewById(R.id.bank_container);
         bankContainer.addView(mBankView);
 
+
+        //Make board
+        mBoardView = BoardView.fromXml(getActivity().getApplicationContext(), view);
+        FrameLayout boardContainer = (FrameLayout) view.findViewById(R.id.game_container);
+        boardContainer.addView(mBoardView);
+
+        makeGame();
+
         //TODO get rid of toast
         Toast.makeText(Shared.context, "Game Loaded", Toast.LENGTH_SHORT).show();
+
+        //TODO get an image background
 
         return view;
     }
@@ -67,10 +74,9 @@ public class GameFragment extends BaseFragment {
         super.onDetach();
     }
 
-    private void makeBoard(){
+    private void makeGame(){
         Game game = Shared.engine.getActiveGame();
         mBoardView.setBoard(game);
+        mBankView.setBank(game);
     }
-
-
 }

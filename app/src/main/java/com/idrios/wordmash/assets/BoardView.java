@@ -114,8 +114,6 @@ public class BoardView extends RelativeLayout {
     }
 
     public void buildBoard(){
-        // TODO upload WordMash background
-
         for(int row = 0; row < 2; row++) {
             for(int tileNum = 0; tileNum < mGameConfiguration.maxWordSize; tileNum++ ){
                 addTile(row, (row * mGameConfiguration.maxWordSize) + tileNum, this);

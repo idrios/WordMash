@@ -52,12 +52,12 @@ public class Engine extends EventObserverAdapter {
         //configure a game
         mPlayingGame = new Game(new GameConfiguration(3, 6));
 
-        //Make WordMap
-
-
         //TODO programmatically set the word
         //set up the game
         mPlayingGame.gameConfiguration.setWord("succes");
+
+        //Make WordMap
+        mPlayingGame.boardArrangement.setWordList("succes");
 
         //load the screen
         mScreenController.openScreen(Screen.GAME);

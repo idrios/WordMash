@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Bank settings -->
+
     <!-- Board settings -->
-    <dimen name="margine_top">70dp</dimen>
+    <dimen name="margine_top">0dp</dimen>
+    <dimen name="margine_bottom">0dp</dimen>
     <dimen name="board_padding">0dp</dimen>
     <dimen name="tile_top_margin">10dp</dimen>
     <dimen name="tile_left_margin">5dp</dimen>
