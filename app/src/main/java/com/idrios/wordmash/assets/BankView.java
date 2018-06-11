@@ -40,7 +40,7 @@ public class BankView extends LinearLayout{
     private int mSizeTile;
     private int mSizeLetter;
 
-    private HashMap<Integer, BankWord> mBankWordReference;
+    private HashMap<String, BankWord> mBankWordReference;
 
     //Strings
     public static final String TILEURLGUESS = "letter_box_guess_single_1100";
@@ -56,7 +56,7 @@ public class BankView extends LinearLayout{
         int padding = getResources().getDimensionPixelSize(R.dimen.board_padding);
         mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20); // I have no clue on these numbers here
         mScreenHeight = Utils.screenHeight() - padding*2 - margin;
-        mBankWordReference = new HashMap<Integer, BankWord>();
+        mBankWordReference = new HashMap<String, BankWord>();
 
     }
 
@@ -69,7 +69,6 @@ public class BankView extends LinearLayout{
         return (BankView) LayoutInflater.from(context).inflate(R.layout.bank_view, parent, false);
     }
 
-    //TODO: Set the bank
     public void setBank(Game game){
         // Load board configuration and arrangement
         mGameConfiguration = game.gameConfiguration;
@@ -84,16 +83,21 @@ public class BankView extends LinearLayout{
         mSizeLetter = (int)Math.round(mSizeTile * 0.90);
 
         buildBank();
+
+        /* THIS IS DEBUG CODE*/
+        //mBankWordReference.get(0).findWord();
+        //mBankWordReference.get(1).findWord();
+        //mBankWordReference.get(2).findWord();
+        /* THIS IS DEBUG CODE */
     }
 
     public void buildBank(){
         //TODO: Make this no longer based on the keySet?
         Object[] wordArray = mBoardArrangement.wordList.keySet().toArray();
         //TODO: Sort this string
-        for(int col = 0; col < 3; col++) {
-            for (int row = 0; row < wordArray.length; row++) {
-                addBankWord(row, (String)wordArray[row]);
-            }
+        for (int row = 0; row < wordArray.length; row++) {
+            addBankWord(row, (String)wordArray[row]);
+
         }
     }
 
@@ -101,7 +105,7 @@ public class BankView extends LinearLayout{
         BankWord bankWord = new BankWord(getContext());
         bankWord.initWord(row, word);
         addView(bankWord, mRowLayoutParams);
-        mBankWordReference.put(row, bankWord);
+        mBankWordReference.put(word, bankWord);
     }
 
     public static Bitmap getTileBitmap(int size){
@@ -116,6 +120,10 @@ public class BankView extends LinearLayout{
         int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
         Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);
         return bitmap;
+    }
+
+    public void wordFound(String word){
+        mBankWordReference.get(word).findWord();
     }
 
     private class BankWord extends LinearLayout{

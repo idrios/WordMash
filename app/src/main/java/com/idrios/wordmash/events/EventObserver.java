@@ -3,6 +3,7 @@ package com.idrios.wordmash.events;
 import com.idrios.wordmash.events.engine.EndGameEvent;
 import com.idrios.wordmash.events.engine.StartGameEvent;
 import com.idrios.wordmash.events.engine.LetterTappedEvent;
+import com.idrios.wordmash.events.engine.WordFoundEvent;
 
 /**
  * Created by idrios on 2/16/18.
@@ -17,5 +18,7 @@ public interface EventObserver {
     void onEvent(LetterTappedEvent event);
 
     void onEvent(EndGameEvent event);
+
+    void onEvent(WordFoundEvent event);
 
 }

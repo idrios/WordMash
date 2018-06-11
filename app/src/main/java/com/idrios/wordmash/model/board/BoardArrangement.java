@@ -23,13 +23,21 @@ public class BoardArrangement {
     public Map<Integer, Integer> letterToTileMap;
     public Map<Integer, Integer> tileToLetterMap;
 
+    //TODO: Where do wordLists actually get made?
     public void setWordList(String word){
         wordList = new HashMap<>();
-        wordList.put("suc", false);
-        wordList.put("succ", false);
-        wordList.put("succe", false);
-        wordList.put("success", false);
+        wordList.put("bug", false);
+        wordList.put("bugs", false);
+        wordList.put("bed", false);
+        wordList.put("sub", false);
+        wordList.put("bus", false);
+        wordList.put("beg", false);
+        wordList.put("begs", false);
+        wordList.put("bud", false);
+        wordList.put("beds", false);
+        wordList.put("budge", false);
+        wordList.put("budges", false);
+        wordList.put("debug", false);
+        wordList.put("debugs", false);
     }
-
-
 }

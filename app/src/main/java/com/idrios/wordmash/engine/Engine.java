@@ -7,9 +7,12 @@ import com.idrios.wordmash.events.EventObserverAdapter;
 import com.idrios.wordmash.events.engine.EndGameEvent;
 import com.idrios.wordmash.events.engine.StartGameEvent;
 import com.idrios.wordmash.events.engine.LetterTappedEvent;
+import com.idrios.wordmash.events.engine.WordFoundEvent;
 import com.idrios.wordmash.model.GameConfiguration;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.engine.ScreenController.Screen;
+
+import java.util.Map;
 
 /**
  * Created by idrios on 2/16/18.
@@ -54,10 +57,10 @@ public class Engine extends EventObserverAdapter {
 
         //TODO programmatically set the word
         //set up the game
-        mPlayingGame.gameConfiguration.setWord("succes");
+        mPlayingGame.gameConfiguration.setWord("debugs");
 
         //Make WordMap
-        mPlayingGame.boardArrangement.setWordList("succes");
+        mPlayingGame.boardArrangement.setWordList("debugs");
 
         //load the screen
         mScreenController.openScreen(Screen.GAME);
@@ -72,8 +75,15 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(LetterTappedEvent event){
-        //TODO make an actual event
-        Toast.makeText(Shared.context, event.word, Toast.LENGTH_SHORT).show();
+        Map WordList = mPlayingGame.boardArrangement.wordList;
+        if(WordList.containsKey(event.word)) {
+            Shared.eventBus.notify(new WordFoundEvent(event.word));
+        }
+
+    }
+
+    @Override
+    public void onEvent(WordFoundEvent event){
 
     }
 

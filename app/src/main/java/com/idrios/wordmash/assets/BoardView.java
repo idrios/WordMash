@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.common.Shared;
@@ -20,6 +21,7 @@ import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.utils.Utils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -111,6 +113,7 @@ public class BoardView extends RelativeLayout {
 
         buildBoard();
         setLetterChars(mGameConfiguration.WORD);
+        randomizeLetters();
     }
 
     public void buildBoard(){
@@ -209,8 +212,86 @@ public class BoardView extends RelativeLayout {
                 }
                 String curWord = getWord(mBoardArrangement.tileToLetterMap);
                 Shared.eventBus.notify(new LetterTappedEvent(curWord));
+
             }
         });
+    }
+
+    public void setLetterChars(String word){
+        setLetterChars(word.toLowerCase().toCharArray());
+    }
+
+    public void setLetterChars(char[] chars){
+        for(int i = 0; i<chars.length; i++){
+            setLetterChar(chars[i], i);
+        }
+    }
+
+    public void setLetterChar(final char c, int id){
+        final LetterView view = mLetterViewReference.get(id);
+        view.setLetter(c);
+
+        // Draw the LetterView
+        new AsyncTask<Void, Void, Bitmap>(){
+
+            @Override
+            protected Bitmap doInBackground(Void... params){
+                return getLetterBitmap(c, mSizeLetter);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap result){
+                view.setLetterImage(result);
+            }
+        }.execute();
+
+
+    }
+
+    //TODO: move letters to chosen tileId
+    public boolean setLetterPosition(int letterId, int tileId){
+        LetterView letterView = mLetterViewReference.get(letterId);
+
+        TileView tileView = mTileViewReference.get(tileId);
+
+        RelativeLayout.LayoutParams letterLayoutParams = new RelativeLayout.LayoutParams(mSizeLetter, mSizeLetter);
+        RelativeLayout.LayoutParams tileLayoutParams = (RelativeLayout.LayoutParams)tileView.getLayoutParams();
+        int[] xy = new int[2];
+
+        // Add new, correct rules
+        letterLayoutParams.addRule(RelativeLayout.ALIGN_LEFT,
+                Integer.parseInt(getResources().getString(R.string.TileViewIdStartVal)) + tileId);
+        letterLayoutParams.leftMargin = ((mSizeTile - mSizeLetter)/2);
+        letterLayoutParams.addRule(RelativeLayout.ALIGN_TOP,
+                Integer.parseInt(getResources().getString(R.string.TileViewIdStartVal)) + tileId);
+        letterLayoutParams.topMargin = ((mSizeTile - mSizeLetter)/2);
+
+        letterView.setLayoutParams(letterLayoutParams);
+
+        //mBoardArrangement.tileToLetterMap.put(mBoardArrangement.letterToTileMap.get(letterId), -1); //make sure the old tile is now at -1
+        //mBoardArrangement.tileToLetterMap.put(tileId, letterId);  // Commented because this ruined the randomizer
+        mBoardArrangement.letterToTileMap.put(letterId, tileId);
+        updateBoardArrangement();
+        //Toast.makeText(Shared.context, printBoard(), Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    public boolean updateBoardArrangement(){
+        int lMapSz = mBoardArrangement.letterToTileMap.size();
+        int tMapSz = mBoardArrangement.tileToLetterMap.size();
+
+        //init tArr with all -1
+        int[] tArr = new int[tMapSz];
+        for(int i = 0; i<tMapSz; i++){
+            tArr[i] = -1;
+        }
+        for(int i = 0; i<lMapSz; i++){
+            tArr[mBoardArrangement.letterToTileMap.get(i)] = i;
+        }
+        for(int i = 0; i<tMapSz; i++){
+            mBoardArrangement.tileToLetterMap.put(i, tArr[i]);
+        }
+        return true;
     }
 
     public boolean moveLetterUp(int letterId){
@@ -248,7 +329,6 @@ public class BoardView extends RelativeLayout {
         for(int id = mGameConfiguration.maxWordSize; id<2*mGameConfiguration.maxWordSize; id++){
             if(mBoardArrangement.tileToLetterMap.get(id) < 0){
                 tileId = id;
-                break;
             }
         }
 
@@ -256,61 +336,46 @@ public class BoardView extends RelativeLayout {
         return true;
     }
 
-    //TODO: move letters to chosen tileId
-    public boolean setLetterPosition(int letterId, int tileId){
-        LetterView letterView = mLetterViewReference.get(letterId);
+    public boolean randomizeLetters(){
+        int arrSize = mGameConfiguration.maxWordSize;
 
-        TileView tileView = mTileViewReference.get(tileId);
+        // Find a random order
+        int[] arr = new int[arrSize];
+        int[] newArr = new int[arrSize];
 
-        RelativeLayout.LayoutParams letterLayoutParams = new RelativeLayout.LayoutParams(mSizeLetter, mSizeLetter);
-        RelativeLayout.LayoutParams tileLayoutParams = (RelativeLayout.LayoutParams)tileView.getLayoutParams();
-        int[] xy = new int[2];
-
-        // Add new, correct rules
-        letterLayoutParams.addRule(RelativeLayout.ALIGN_LEFT,
-                Integer.parseInt(getResources().getString(R.string.TileViewIdStartVal)) + tileId);
-        letterLayoutParams.leftMargin = ((mSizeTile - mSizeLetter)/2);
-        letterLayoutParams.addRule(RelativeLayout.ALIGN_TOP,
-                Integer.parseInt(getResources().getString(R.string.TileViewIdStartVal)) + tileId);
-        letterLayoutParams.topMargin = ((mSizeTile - mSizeLetter)/2);
-
-        letterView.setLayoutParams(letterLayoutParams);
-
-        mBoardArrangement.tileToLetterMap.put(mBoardArrangement.letterToTileMap.get(letterId), -1); //make sure the old tile is now at -1
-        mBoardArrangement.tileToLetterMap.put(tileId, letterId);
-        mBoardArrangement.letterToTileMap.put(letterId, tileId);
-        return true;
-    }
-
-    public void setLetterChars(String word){
-        setLetterChars(word.toLowerCase().toCharArray());
-    }
-
-    public void setLetterChars(char[] chars){
-        for(int i = 0; i<chars.length; i++){
-            setLetterChar(chars[i], i);
+        for(int i = 0; i < arrSize; i++){
+            arr[i] = i+1; //arr[] = {1, 2, 3, 4, 5, 6},
         }
-    }
 
-    public void setLetterChar(final char c, int id){
-        final LetterView view = mLetterViewReference.get(id);
-        view.setLetter(c);
-
-        // Draw the LetterView
-        new AsyncTask<Void, Void, Bitmap>(){
-
-            @Override
-            protected Bitmap doInBackground(Void... params){
-                return getLetterBitmap(c, mSizeLetter);
+        //Yeah, yeah, it's O(N^2) but it only runs over like... 6 elements so don't get mad at me.
+        for(int i = 0; i < arrSize; i++){
+            int randInd = (int)Math.floor(Math.random()*(arrSize-i)); // Get a random number from a size of how many are available
+            for(int j = 0; j < arrSize; j++){
+                while(newArr[j] > 0){
+                    j+=1;
+                }
+                if(randInd <= 0){
+                    newArr[j] = arr[i];
+                    break;
+                }
+                randInd -= 1;
             }
+        }
 
-            @Override
-            protected void onPostExecute(Bitmap result){
-                view.setLetterImage(result);
+        int[] letterIdArr = new int[arrSize];
+        int[] tileIdArr = new int[arrSize];
+        for(int i = 0; i < arrSize; i++){
+            tileIdArr[i] = (newArr[i]-1)+arrSize;
+            letterIdArr[i] = mBoardArrangement.tileToLetterMap.get(i+arrSize);
+        }
+        for(int i = 0; i < arrSize; i++){
+            if(letterIdArr[i] >=0 ) {
+                setLetterPosition(letterIdArr[i], tileIdArr[i]);
             }
-        }.execute();
+        }
 
 
+        return true;
     }
 
     public String getWord(Map<Integer, Integer> tileToLetterMap){
@@ -341,6 +406,28 @@ public class BoardView extends RelativeLayout {
         int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
         Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);
         return bitmap;
+    }
+
+    public String printBoard(){
+        String str = "";
+        for(int i = 0; i < mGameConfiguration.maxWordSize; i++) {
+            if(mBoardArrangement.tileToLetterMap.get(i) >= 0) {
+                str += "[x]";
+            }
+            else{
+                str += "[_]";
+            }
+        }
+        str += "\n";
+        for(int i = mGameConfiguration.maxWordSize; i < 2*mGameConfiguration.maxWordSize; i++) {
+            if(mBoardArrangement.tileToLetterMap.get(i) >= 0) {
+                str += "[x]";
+            }
+            else{
+                str += "[_]";
+            }
+        }
+        return str;
     }
 
 }

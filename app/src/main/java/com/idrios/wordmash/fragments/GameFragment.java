@@ -12,6 +12,8 @@ import com.idrios.wordmash.R;
 import com.idrios.wordmash.assets.BankView;
 import com.idrios.wordmash.assets.BoardView;
 import com.idrios.wordmash.common.Shared;
+import com.idrios.wordmash.events.Event;
+import com.idrios.wordmash.events.engine.WordFoundEvent;
 import com.idrios.wordmash.model.Game;
 
 import java.util.HashMap;
@@ -55,13 +57,17 @@ public class GameFragment extends BaseFragment {
         boardContainer.addView(mBoardView);
 
         makeGame();
-
-        //TODO get rid of toast
-        Toast.makeText(Shared.context, "Game Loaded", Toast.LENGTH_SHORT).show();
+        Shared.eventBus.listen(WordFoundEvent.TYPE, this);
 
         //TODO get an image background
 
         return view;
+    }
+
+    @Override
+    public void onDestroy(){
+        Shared.eventBus.unlisten(WordFoundEvent.TYPE, this);
+        super.onDestroy();
     }
 
     @Override
@@ -78,5 +84,10 @@ public class GameFragment extends BaseFragment {
         Game game = Shared.engine.getActiveGame();
         mBoardView.setBoard(game);
         mBankView.setBank(game);
+    }
+
+    @Override
+    public void onEvent(WordFoundEvent e){
+        mBankView.wordFound(e.word);
     }
 }
