@@ -3,6 +3,7 @@ package com.idrios.wordmash.model.wordlist;
 import android.content.Context;
 
 import com.idrios.wordmash.R;
+import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.model.wordlist.MapNode;
 
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 /**
  * Created by idrios on 3/20/18.
  * ** Because this is in the Utils package, all methods should be static so there should be another
- * class that keeps the correct maps
+ * class that keeps the correct maps (changed to "Model" package but I still want
  */
 
 public class HashmapHelper {
@@ -25,10 +26,10 @@ public class HashmapHelper {
     private static MapNode FOUR_LETTER_WORD_MAP;
     private static MapNode THREE_LETTER_WORD_MAP;
 
-    private static String[] sixS;
-    private static String[] fiveS;
-    private static String[] fourS;
-    private static String[] threeS;
+    public static String[] sixS;
+    public static String[] fiveS;
+    public static String[] fourS;
+    public static String[] threeS;
 
     public static HashMap getLetterValuesPair(){
         return LETTER_VALUES_PAIR;
@@ -46,7 +47,9 @@ public class HashmapHelper {
         return THREE_LETTER_WORD_MAP;
     }
 
-    public static void init(Context context){
+    public static void init(){
+        Context context = Shared.context;
+
         // Load points associated for each letter
         initLetterValuesPair(context); //Assign points for each letter,
 
@@ -55,9 +58,6 @@ public class HashmapHelper {
 
         // Load words from string array into map-format
         initLetterWordMap();
-
-        // Clear strings to save space;
-        clearWords();
 
         System.out.println("INITIALIZING");
     }
@@ -89,13 +89,6 @@ public class HashmapHelper {
         threeS = readRawTextFile(context, fIDThree);
     }
 
-    public static void clearWords(){
-        sixS = null;
-        fiveS = null;
-        fourS = null;
-        threeS = null;
-    }
-
     public static void initLetterWordMap(){
         SIX_LETTER_WORD_MAP = new MapNode('\u0000');  // Init root nodes
         FIVE_LETTER_WORD_MAP = new MapNode('\u0000'); // Value for Letter is null character
@@ -107,7 +100,7 @@ public class HashmapHelper {
         buildLetterWordMap(THREE_LETTER_WORD_MAP, threeS);
     }
 
-    public static void buildLetterWordMap(MapNode root, String[] dictionary){
+    private static void buildLetterWordMap(MapNode root, String[] dictionary){
         for(int i = 0; i < dictionary.length; i++){
             String word = dictionary[i];               // take one word from list
             char[] letters = word.toCharArray();       // break word into letters
@@ -115,7 +108,7 @@ public class HashmapHelper {
         }
     }
 
-    public static void buildSubLetterWordMap(MapNode node, char[] c, int i){
+    private static void buildSubLetterWordMap(MapNode node, char[] c, int i){
         if(i >= c.length) {      // Base Case.. iterated through all letters
             return;
         }
@@ -156,7 +149,7 @@ public class HashmapHelper {
         return mapHasCharArr(node, string.toCharArray(), 0);
     }
 
-    public static boolean mapHasCharArr(MapNode node, char[] c, int i){
+    private static boolean mapHasCharArr(MapNode node, char[] c, int i){
         if(i == c.length) { // Base Case.. iterated through all letters without finding a difference
             return true;
         }

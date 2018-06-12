@@ -49,8 +49,6 @@ import java.util.Map;
  */
 
 public class BoardView extends RelativeLayout {
-    //TODO: randomize the positions of the letters before the get rendered (so people can't see the answers)
-
     private static final String TAG = "BoardView";
 
     //Layout information
@@ -113,7 +111,7 @@ public class BoardView extends RelativeLayout {
 
         buildBoard();
         setLetterChars(mGameConfiguration.WORD);
-        randomizeLetters();
+        //randomizeLetters("Animation", "off");
     }
 
     public void buildBoard(){
@@ -124,7 +122,7 @@ public class BoardView extends RelativeLayout {
         }
         for(int id = 0; id < mGameConfiguration.maxWordSize; id++){
             addLetter(id, this);
-            setLetterPosition(id, id + mGameConfiguration.maxWordSize);
+            setLetterPosition(id, mBoardArrangement.letterToTileMap.get(id));
         }
     }
 
@@ -212,7 +210,7 @@ public class BoardView extends RelativeLayout {
                 }
                 String curWord = getWord(mBoardArrangement.tileToLetterMap);
                 Shared.eventBus.notify(new LetterTappedEvent(curWord));
-
+                //Toast.makeText(Shared.context, printBoard(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -248,7 +246,6 @@ public class BoardView extends RelativeLayout {
 
     }
 
-    //TODO: move letters to chosen tileId
     public boolean setLetterPosition(int letterId, int tileId){
         LetterView letterView = mLetterViewReference.get(letterId);
 
@@ -336,7 +333,24 @@ public class BoardView extends RelativeLayout {
         return true;
     }
 
-    public boolean randomizeLetters(){
+    //Not good use of String... Params but I wanted to learn how to use String... Params
+    public boolean randomizeLetters(String... params){
+        // A very long and convoluted way of checking if "animation" is on or off.
+        // Particularly useless because I changed the code so that there's no reason to turn
+        // animation off.
+        // Don't care though. This is my project and I'm keeping this code in here.
+        String animation = "off";
+        String curParam = "";
+        for(String param : params){
+            switch(curParam){
+                case "Animation":
+                    animation = param;
+                    break;
+            }
+            curParam = param;
+        }
+
+
         int arrSize = mGameConfiguration.maxWordSize;
 
         // Find a random order
@@ -412,7 +426,7 @@ public class BoardView extends RelativeLayout {
         String str = "";
         for(int i = 0; i < mGameConfiguration.maxWordSize; i++) {
             if(mBoardArrangement.tileToLetterMap.get(i) >= 0) {
-                str += "[x]";
+                str += "[" + mBoardArrangement.tileToLetterMap.get(i) + "]";
             }
             else{
                 str += "[_]";
@@ -421,7 +435,7 @@ public class BoardView extends RelativeLayout {
         str += "\n";
         for(int i = mGameConfiguration.maxWordSize; i < 2*mGameConfiguration.maxWordSize; i++) {
             if(mBoardArrangement.tileToLetterMap.get(i) >= 0) {
-                str += "[x]";
+                str += "[" + mBoardArrangement.tileToLetterMap.get(i) + "]";
             }
             else{
                 str += "[_]";

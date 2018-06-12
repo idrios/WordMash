@@ -54,4 +54,17 @@ public class Utils {
         return inSampleSize;
     }
 
+    public static String mkStringFromCharArray(char[] array){
+        if (array == null){
+            return null;
+        }
+        int len = array.length;
+        String s = "";
+        for(int i = 0; i<len; i++){
+            s = s + array[i];
+        }
+        return s;
+    }
+
+
 }

@@ -8,6 +8,7 @@ import com.idrios.wordmash.engine.Engine;
 import com.idrios.wordmash.engine.ScreenController;
 import com.idrios.wordmash.engine.ScreenController.Screen;
 import com.idrios.wordmash.events.EventBus;
+import com.idrios.wordmash.model.wordlist.HashmapHelper;
 
 public class MainActivity extends FragmentActivity {
 
@@ -19,6 +20,7 @@ public class MainActivity extends FragmentActivity {
         Shared.context = getApplicationContext();
         Shared.engine = Engine.getInstance();
         Shared.eventBus = EventBus.getInstance();
+        HashmapHelper.init();
 
         // Load main activity layout
         setContentView(R.layout.activity_main);

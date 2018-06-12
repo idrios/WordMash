@@ -180,7 +180,7 @@ public class BankView extends LinearLayout{
             System.out.println("Done");
         }
 
-        //TODO: This will be off-center. Fix that.
+        //This will be off-center. Fix that. ------ Actually, amazingly, it is not.
         private void addLetter(int id){
             final TileView tileView = mTileViewReference.get(id);
             final char c = WORD.charAt(id);

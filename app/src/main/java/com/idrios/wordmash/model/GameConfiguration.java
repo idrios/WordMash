@@ -16,9 +16,7 @@ public class GameConfiguration {
         minWordSize = lenMin;
         maxWordSize = lenMax;
     }
-    public void setWord(){
 
-    }
     public void setWord(String word){
         this.WORD = word;
     }

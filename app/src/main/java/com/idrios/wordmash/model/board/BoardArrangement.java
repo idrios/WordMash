@@ -3,6 +3,7 @@ package com.idrios.wordmash.model.board;
 import android.graphics.Bitmap;
 
 import com.idrios.wordmash.common.Shared;
+import com.idrios.wordmash.model.wordlist.WordMap;
 import com.idrios.wordmash.utils.Utils;
 
 import java.util.HashMap;
@@ -24,7 +25,12 @@ public class BoardArrangement {
     public Map<Integer, Integer> tileToLetterMap;
 
     //TODO: Where do wordLists actually get made?
-    public void setWordList(String word){
+    public void setWordList(WordMap wordMap){
+        wordList = new HashMap<>();
+        for(int i = 0; i < wordMap.WORDS.length; i++){
+            wordList.put(wordMap.WORDS[i], false);
+        }
+        /*
         wordList = new HashMap<>();
         wordList.put("bug", false);
         wordList.put("bugs", false);
@@ -39,5 +45,6 @@ public class BoardArrangement {
         wordList.put("budges", false);
         wordList.put("debug", false);
         wordList.put("debugs", false);
+        */
     }
 }

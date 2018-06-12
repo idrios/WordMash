@@ -51,16 +51,8 @@ public class Engine extends EventObserverAdapter {
     @Override
     public void onEvent(StartGameEvent event){
 
-        //TODO set the wordmap in the game configuration
         //configure a game
-        mPlayingGame = new Game(new GameConfiguration(3, 6));
-
-        //TODO programmatically set the word
-        //set up the game
-        mPlayingGame.gameConfiguration.setWord("debugs");
-
-        //Make WordMap
-        mPlayingGame.boardArrangement.setWordList("debugs");
+        mPlayingGame = new Game(new GameConfiguration(3, 5));
 
         //load the screen
         mScreenController.openScreen(Screen.GAME);
