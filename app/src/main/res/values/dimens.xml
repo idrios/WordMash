@@ -2,6 +2,13 @@
 <resources>
 
     <!-- Bank settings -->
+    <dimen name="bank_tile_margin_left">5dp</dimen>
+    <dimen name="bank_tile_margin_horizontal">0dp</dimen>
+    <dimen name="bank_tile_margin_right">5dp</dimen>
+    <dimen name="column_margin_horizontal">10dp</dimen>
+    <dimen name="column_margin_vertical">10dp</dimen>
+
+
 
     <!-- Board settings -->
     <dimen name="margine_top">0dp</dimen>

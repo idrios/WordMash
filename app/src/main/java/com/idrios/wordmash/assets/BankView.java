@@ -31,7 +31,7 @@ public class BankView extends LinearLayout{
     private static final String TAG = "BankView";
 
     //Game information
-    private LinearLayout.LayoutParams mColLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+    private LinearLayout.LayoutParams mColLayoutParams;
     private LinearLayout.LayoutParams mRowLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private BoardArrangement mBoardArrangement;
     private GameConfiguration mGameConfiguration;
@@ -82,9 +82,11 @@ public class BankView extends LinearLayout{
         mBoardArrangement = game.boardArrangement;
 
         // calculate tile width and height
-        int tileMarginLeft = getResources().getDimensionPixelSize(R.dimen.tile_left_margin);
-        int tileMarginHorizontal = getResources().getDimensionPixelSize(R.dimen.tile_horizontal_margin);
-        int tileMarginRight = getResources().getDimensionPixelSize(R.dimen.tile_right_margin);
+        int tileMarginLeft = getResources().getDimensionPixelSize(R.dimen.bank_tile_margin_left);
+        int tileMarginHorizontal = getResources().getDimensionPixelSize(R.dimen.bank_tile_margin_horizontal);
+        int tileMarginRight = getResources().getDimensionPixelSize(R.dimen.bank_tile_margin_right);
+        int columnMarginHorizontal = getResources().getDimensionPixelSize(R.dimen.column_margin_horizontal);
+        int columnMarginVertical = getResources().getDimensionPixelSize(R.dimen.column_margin_vertical);
         mNumColumn = 3;
         mWidthColumn = mScreenWidth/mNumColumn;
         mHeightColumn = mScreenHeight; //NOT CORRECT
@@ -92,6 +94,9 @@ public class BankView extends LinearLayout{
                 ((mGameConfiguration.maxWordSize - 1)*tileMarginHorizontal) - tileMarginRight)
                 / mGameConfiguration.maxWordSize);
         mSizeLetter = (int)Math.round(mSizeTile * 0.90);
+
+        mColLayoutParams = new LinearLayout.LayoutParams(mWidthColumn, LayoutParams.MATCH_PARENT);
+        mRowLayoutParams.setMargins(tileMarginLeft, 0, tileMarginRight, 0);
 
         buildBank();
 
@@ -174,6 +179,7 @@ public class BankView extends LinearLayout{
         }
 
         public void initWord(int id, String word){
+
             this.ID = id;
             this.WORD = word;
             this.mTileViewReference = new HashMap<Integer, TileView>();
