@@ -17,6 +17,7 @@ import com.idrios.wordmash.model.GameConfiguration;
 import com.idrios.wordmash.model.board.BoardArrangement;
 import com.idrios.wordmash.utils.Utils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -30,6 +31,7 @@ public class BankView extends LinearLayout{
     private static final String TAG = "BankView";
 
     //Game information
+    private LinearLayout.LayoutParams mColLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
     private LinearLayout.LayoutParams mRowLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private BoardArrangement mBoardArrangement;
     private GameConfiguration mGameConfiguration;
@@ -38,8 +40,12 @@ public class BankView extends LinearLayout{
     private int mScreenWidth;
     private int mScreenHeight;
     private int mSizeTile;
+    private int mNumColumn;
+    private int mWidthColumn;
+    private int mHeightColumn;
     private int mSizeLetter;
 
+    private HashMap<Integer, LinearLayout> mBankColumnReference;
     private HashMap<String, BankWord> mBankWordReference;
 
     //Strings
@@ -51,11 +57,12 @@ public class BankView extends LinearLayout{
     public BankView(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
         setGravity(Gravity.CENTER);
-        setOrientation(LinearLayout.VERTICAL);
+        setOrientation(LinearLayout.HORIZONTAL);
         int margin = getResources().getDimensionPixelSize(R.dimen.margine_top);
         int padding = getResources().getDimensionPixelSize(R.dimen.board_padding);
-        mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20); // I have no clue on these numbers here
+        mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20);
         mScreenHeight = Utils.screenHeight() - padding*2 - margin;
+        mBankColumnReference = new HashMap<Integer, LinearLayout>();
         mBankWordReference = new HashMap<String, BankWord>();
 
     }
@@ -76,10 +83,14 @@ public class BankView extends LinearLayout{
 
         // calculate tile width and height
         int tileMarginLeft = getResources().getDimensionPixelSize(R.dimen.tile_left_margin);
-        int tileMarginHorizontal = getResources().getDimensionPixelSize(R.dimen.tile_horizontal_margin)/4;
+        int tileMarginHorizontal = getResources().getDimensionPixelSize(R.dimen.tile_horizontal_margin);
         int tileMarginRight = getResources().getDimensionPixelSize(R.dimen.tile_right_margin);
-        int width = (mScreenWidth - tileMarginLeft - tileMarginRight)/4;
-        mSizeTile = Math.round((width - ((mGameConfiguration.maxWordSize - 1)*tileMarginHorizontal)) / mGameConfiguration.maxWordSize);
+        mNumColumn = 3;
+        mWidthColumn = mScreenWidth/mNumColumn;
+        mHeightColumn = mScreenHeight; //NOT CORRECT
+        mSizeTile = Math.round((mWidthColumn - tileMarginLeft -
+                ((mGameConfiguration.maxWordSize - 1)*tileMarginHorizontal) - tileMarginRight)
+                / mGameConfiguration.maxWordSize);
         mSizeLetter = (int)Math.round(mSizeTile * 0.90);
 
         buildBank();
@@ -94,17 +105,41 @@ public class BankView extends LinearLayout{
     public void buildBank(){
         //TODO: Make this no longer based on the keySet?
         Object[] wordArray = mBoardArrangement.wordList.keySet().toArray();
-        //TODO: Sort this string
-        for (int row = 0; row < wordArray.length; row++) {
-            addBankWord(row, (String)wordArray[row]);
+        String[] wordArraySort = new String[wordArray.length];
+        int ind = 0;
+        for(int len = mGameConfiguration.minWordSize; len <= mGameConfiguration.maxWordSize; len++){
+            //NOTE: If you feel like sorting the strings by alphabet in the bank, do it here
+            for(int i = 0; i < wordArray.length; i++){
+                String word = (String)wordArray[i];
+                if(word.length()==len){
+                    wordArraySort[ind] = word;
+                    ind++;
+                }
+            }
+        }
 
+        for(int i = 0; i < mNumColumn; i++){
+            addBankColumn(i);
+        }
+        for (int id = 0; id < wordArray.length; id++) {
+            addBankWord(id, wordArraySort[id]);
         }
     }
 
-    private void addBankWord(int row, String word){
+    private void addBankColumn(int id){
+        LinearLayout colLayout = new LinearLayout(getContext());
+        colLayout.setGravity(Gravity.CENTER);
+        colLayout.setOrientation(LinearLayout.VERTICAL);
+
+        addView(colLayout, mColLayoutParams);
+        mBankColumnReference.put(id, colLayout);
+    }
+
+    private void addBankWord(int id, String word){
+        int col = id % mNumColumn;
         BankWord bankWord = new BankWord(getContext());
-        bankWord.initWord(row, word);
-        addView(bankWord, mRowLayoutParams);
+        bankWord.initWord(id, word);
+        mBankColumnReference.get(col).addView(bankWord, mRowLayoutParams);
         mBankWordReference.put(word, bankWord);
     }
 
@@ -128,7 +163,7 @@ public class BankView extends LinearLayout{
 
     private class BankWord extends LinearLayout{
         //Board Info
-        public int ROW;
+        public int ID;
         public String WORD;
         public boolean found = false;
         private LinearLayout.LayoutParams mLayoutParams;
@@ -138,31 +173,31 @@ public class BankView extends LinearLayout{
             super(context);
         }
 
-        public void initWord(int row, String word){
-            this.ROW = row;
+        public void initWord(int id, String word){
+            this.ID = id;
             this.WORD = word;
             this.mTileViewReference = new HashMap<Integer, TileView>();
             this.mLayoutParams = new LinearLayout.LayoutParams(mSizeTile, mSizeTile);
-            for(int id = 0; id < WORD.length(); id++){
-                addTile(id);
+            for(int tileId = 0; tileId < WORD.length(); tileId++){
+                addTile(tileId);
             }
         }
 
         public void findWord(){
             found = true;
-            for(int id = 0; id < mTileViewReference.size(); id++){
-                addLetter(id);
+            for(int tileId = 0; tileId < mTileViewReference.size(); tileId++){
+                addLetter(tileId);
             }
             mBoardArrangement.wordList.put(WORD, true);
         }
 
-        private void addTile(int id) {
+        private void addTile(int tileId) {
             final TileView tileView = TileView.fromXml(getContext(), this);
 
-            tileView.setId(id);
+            tileView.setId(tileId);
             tileView.setLayoutParams(mLayoutParams);
             this.addView(tileView);
-            mTileViewReference.put(id, tileView);
+            mTileViewReference.put(tileId, tileView);
 
             // Render the TileView
             new AsyncTask<Void, Void, Bitmap>(){
@@ -177,13 +212,12 @@ public class BankView extends LinearLayout{
                     tileView.setTileImage(result);
                 }
             }.execute();
-            System.out.println("Done");
         }
 
         //This will be off-center. Fix that. ------ Actually, amazingly, it is not.
-        private void addLetter(int id){
-            final TileView tileView = mTileViewReference.get(id);
-            final char c = WORD.charAt(id);
+        private void addLetter(int tileId){
+            final TileView tileView = mTileViewReference.get(tileId);
+            final char c = WORD.charAt(tileId);
             // Render the Letter
             new AsyncTask<Void, Void, Bitmap>(){
 

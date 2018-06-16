@@ -80,7 +80,7 @@ public class BoardView extends RelativeLayout {
         setGravity(Gravity.CENTER);
         int margin = getResources().getDimensionPixelSize(R.dimen.margine_top);
         int padding = getResources().getDimensionPixelSize(R.dimen.board_padding);
-        mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20); // I have no clue on these numbers here
+        mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20);
         mScreenHeight = Utils.screenHeight() - padding*2 - margin;
         mTileViewReference = new HashMap<Integer, TileView>();
         mLetterViewReference = new HashMap<Integer, LetterView>();
@@ -131,6 +131,7 @@ public class BoardView extends RelativeLayout {
         final TileView tileView = TileView.fromXml(getContext(), parent);
 
         // Give the tile a proper View ID (viewId = 1000 + id, where 1000 is from strings.xml)
+        // In retrospect why did I do this?
         tileView.setId(Integer.parseInt(getResources().getString(R.string.TileViewIdStartVal)) + id);
 
         // Create LayoutParams
