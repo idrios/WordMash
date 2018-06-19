@@ -49,7 +49,7 @@ public class BankView extends LinearLayout{
     private HashMap<String, BankWord> mBankWordReference;
 
     //Strings
-    public static final String TILEURLGUESS = "letter_box_guess_single_1100";
+    public static final String TILEURLGUESS = "letter_box_guess_single_tiny";
 
     public BankView(Context context){
         this(context, null);

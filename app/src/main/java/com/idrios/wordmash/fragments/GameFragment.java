@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.idrios.wordmash.R;
@@ -60,7 +61,6 @@ public class GameFragment extends BaseFragment {
         Shared.eventBus.listen(WordFoundEvent.TYPE, this);
 
         //TODO get an image background
-
         return view;
     }
 

@@ -52,7 +52,7 @@ public class Engine extends EventObserverAdapter {
     public void onEvent(StartGameEvent event){
 
         //configure a game
-        mPlayingGame = new Game(new GameConfiguration(3, 5));
+        mPlayingGame = new Game(new GameConfiguration(3, 6));
 
         //load the screen
         mScreenController.openScreen(Screen.GAME);
