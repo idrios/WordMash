@@ -8,5 +8,10 @@ package com.idrios.wordmash.ui;
  of their own.
  */
 
+/**
+ * June 24 Edit:
+ * Naming packages is hard and this class did not stay the way I wanted it to.
+ */
+
 public class _readme {
 }

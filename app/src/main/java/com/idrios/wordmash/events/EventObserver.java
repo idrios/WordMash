@@ -1,6 +1,8 @@
 package com.idrios.wordmash.events;
 
 import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.RandomizeEvent;
+import com.idrios.wordmash.events.engine.ResetTilesEvent;
 import com.idrios.wordmash.events.engine.StartGameEvent;
 import com.idrios.wordmash.events.engine.LetterTappedEvent;
 import com.idrios.wordmash.events.engine.WordFoundEvent;
@@ -16,6 +18,10 @@ public interface EventObserver {
     void onEvent(StartGameEvent event);
 
     void onEvent(LetterTappedEvent event);
+
+    void onEvent(RandomizeEvent event);
+
+    void onEvent(ResetTilesEvent event);
 
     void onEvent(EndGameEvent event);
 

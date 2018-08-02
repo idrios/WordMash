@@ -67,8 +67,8 @@ public class BoardView extends RelativeLayout {
     private Map<Integer, LetterView> mLetterViewReference; // {1,2,3,4,5,6}
 
     //Strings
-    public static final String TILEURL = "letter_box_single_1100";
-    public static final String TILEURLGUESS = "letter_box_guess_single_1100";
+    public static final String TILEURL = "letter_tile_new";
+    public static final String TILEURLGUESS = "letter_tile_new_blue";
 
 
     public BoardView(Context context){
@@ -318,8 +318,10 @@ public class BoardView extends RelativeLayout {
 
         // Unlock the previous letter
         int oldTileId = mBoardArrangement.letterToTileMap.get(letterId);
-        if(oldTileId > 0) {
-            mLetterViewReference.get(mBoardArrangement.tileToLetterMap.get(oldTileId - 1)).isLocked = false;
+        if(oldTileId > 0) {                                                                                         // If it's not the first tile
+            if(mBoardArrangement.tileToLetterMap.get(oldTileId - 1) >= 0) {                                         // If there is a letter on the previous tile
+                mLetterViewReference.get(mBoardArrangement.tileToLetterMap.get(oldTileId - 1)).isLocked = false;    // unlock the previous letter
+            }
         }
 
         // This while-loop finds which tile is not occupied by a letterView
@@ -331,6 +333,24 @@ public class BoardView extends RelativeLayout {
         }
 
         setLetterPosition(letterId, tileId);
+        return true;
+    }
+
+    public boolean resetLetters(){
+        //Unlock all letters
+        for(int tileId = mGameConfiguration.maxWordSize - 1; tileId >= 0; tileId--){
+            if(mBoardArrangement.tileToLetterMap.get(tileId) > -1){
+                mLetterViewReference.get(mBoardArrangement.tileToLetterMap.get(tileId)).isLocked = false;
+            }
+        }
+
+        //Move all letters down
+        for(int tileId = mGameConfiguration.maxWordSize - 1; tileId >= 0; tileId--){
+            if(mBoardArrangement.tileToLetterMap.get(tileId) > -1){
+                moveLetterDown(mBoardArrangement.tileToLetterMap.get(tileId));
+            }
+        }
+
         return true;
     }
 
@@ -417,7 +437,7 @@ public class BoardView extends RelativeLayout {
     }
 
     public static Bitmap getLetterBitmap(char c, int size){
-        String drawableResourceName = "letter_" + c;
+        String drawableResourceName = "letter_" + c + "_new";
         int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
         Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);
         return bitmap;

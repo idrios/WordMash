@@ -60,9 +60,9 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(EndGameEvent event){
-        //TODO is this correct?
-        mScreenController.openScreen(Screen.MENU);
-        mPlayingGame = null;
+        //TODO correct this
+        //mScreenController.openScreen(Screen.MENU);
+        //mPlayingGame = null;
     }
 
     @Override

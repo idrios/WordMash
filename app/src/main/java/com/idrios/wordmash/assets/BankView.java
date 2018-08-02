@@ -49,7 +49,7 @@ public class BankView extends LinearLayout{
     private HashMap<String, BankWord> mBankWordReference;
 
     //Strings
-    public static final String TILEURLGUESS = "letter_box_guess_single_tiny";
+    public static final String TILEURLGUESS = "letter_tile_new_blue_small";
 
     public BankView(Context context){
         this(context, null);
@@ -155,8 +155,14 @@ public class BankView extends LinearLayout{
         return bitmap;
     }
 
-    public static Bitmap getLetterBitmap(char c, int size){
-        String drawableResourceName = "letter_" + c;
+    public static Bitmap getLetterBitmap(char c, boolean found, int size){
+        String drawableResourceName;
+        if(found) {
+            drawableResourceName = "letter_" + c + "_new_small";
+        } else{
+            drawableResourceName = "letter_" + c + "_new_small_blue";
+        }
+
         int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
         Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);
         return bitmap;
@@ -164,6 +170,14 @@ public class BankView extends LinearLayout{
 
     public void wordFound(String word){
         mBankWordReference.get(word).findWord();
+    }
+
+    public void showAll(){ //TODO make this show the words in a different color
+        for(BankWord word : mBankWordReference.values()){
+            if(!word.found){
+                word.showWord();
+            }
+        }
     }
 
     private class BankWord extends LinearLayout{
@@ -191,8 +205,12 @@ public class BankView extends LinearLayout{
 
         public void findWord(){
             found = true;
+            showWord();
+        }
+
+        public void showWord(){
             for(int tileId = 0; tileId < mTileViewReference.size(); tileId++){
-                addLetter(tileId);
+                addLetter(tileId, found);
             }
             mBoardArrangement.wordList.put(WORD, true);
         }
@@ -221,7 +239,7 @@ public class BankView extends LinearLayout{
         }
 
         //This will be off-center. Fix that. ------ Actually, amazingly, it is not.
-        private void addLetter(int tileId){
+        private void addLetter(int tileId, final boolean found){
             final TileView tileView = mTileViewReference.get(tileId);
             final char c = WORD.charAt(tileId);
             // Render the Letter
@@ -229,7 +247,7 @@ public class BankView extends LinearLayout{
 
                 @Override
                 protected Bitmap doInBackground(Void... params){
-                    return getLetterBitmap(c, mSizeLetter);
+                    return getLetterBitmap(c, found, mSizeLetter);
                 }
 
                 @Override
