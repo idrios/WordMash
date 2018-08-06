@@ -1,4 +1,4 @@
-package com.idrios.wordmash.ui;
+package com.idrios.wordmash.assets;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,15 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.common.Shared;
-import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.GameEndEvent;
+import com.idrios.wordmash.events.engine.GameLoseEvent;
 import com.idrios.wordmash.events.engine.RandomizeEvent;
-import com.idrios.wordmash.events.engine.ResetTilesEvent;
+import com.idrios.wordmash.events.engine.LettersResetEvent;
 
 /**
  * Created by idrios on 6/24/18.
@@ -40,14 +39,14 @@ public class PanelView extends LinearLayout{
         reset = new Button(context);
 
         //TODO: give these images, and consider changing text font
-        endGame.setText("End Game");
+        endGame.setText("Give Up!");
         randomize.setText("Randomize");
         reset.setText("Reset");
 
         endGame.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Shared.eventBus.notify(new EndGameEvent());
+                Shared.eventBus.notify(new GameLoseEvent());
             }
         });
         randomize.setOnClickListener(new OnClickListener() {
@@ -59,7 +58,7 @@ public class PanelView extends LinearLayout{
         reset.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Shared.eventBus.notify(new ResetTilesEvent());
+                Shared.eventBus.notify(new LettersResetEvent());
             }
         });
 

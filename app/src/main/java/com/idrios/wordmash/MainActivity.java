@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.idrios.wordmash.common.Music;
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.engine.Engine;
 import com.idrios.wordmash.engine.ScreenController;
@@ -40,12 +41,12 @@ public class MainActivity extends FragmentActivity {
 
         // Launch menu screen
         ScreenController.getInstance().openScreen(Screen.MENU);
-
     }
 
     @Override
     protected void onDestroy(){
         Shared.engine.stop();
+        Music.stop();
         super.onDestroy();
     }
 
@@ -55,6 +56,18 @@ public class MainActivity extends FragmentActivity {
         if(ScreenController.getInstance().onBack()) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onPause(){
+        Music.pauseLong();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume(){
+        Music.resumeLong();
+        super.onResume();
     }
 
     private void setBackgroundImage() {

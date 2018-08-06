@@ -1,11 +1,14 @@
 package com.idrios.wordmash.events;
 
-import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.GameEndEvent;
+import com.idrios.wordmash.events.engine.GameLoseEvent;
+import com.idrios.wordmash.events.engine.GameWinEvent;
 import com.idrios.wordmash.events.engine.RandomizeEvent;
-import com.idrios.wordmash.events.engine.ResetTilesEvent;
-import com.idrios.wordmash.events.engine.StartGameEvent;
-import com.idrios.wordmash.events.engine.LetterTappedEvent;
-import com.idrios.wordmash.events.engine.WordFoundEvent;
+import com.idrios.wordmash.events.engine.LettersResetEvent;
+import com.idrios.wordmash.events.engine.GameStartEvent;
+import com.idrios.wordmash.events.engine.LetterTapEvent;
+import com.idrios.wordmash.events.engine.WordDiscoverEvent;
+import com.idrios.wordmash.events.engine.WordRootDiscoverEvent;
 
 /**
  * Created by idrios on 2/16/18.
@@ -15,16 +18,25 @@ import com.idrios.wordmash.events.engine.WordFoundEvent;
 
 public interface EventObserver {
     //TODO include other event types
-    void onEvent(StartGameEvent event);
+    void onEvent(GameStartEvent event);
 
-    void onEvent(LetterTappedEvent event);
+    void onEvent(GameEndEvent event);
+
+    void onEvent(GameWinEvent event);
+
+    void onEvent(GameLoseEvent event);
+
+    void onEvent(WordDiscoverEvent event);
+
+    void onEvent(WordRootDiscoverEvent event);
+
+    void onEvent(LetterTapEvent event);
+
+    void onEvent(LettersResetEvent event);
 
     void onEvent(RandomizeEvent event);
 
-    void onEvent(ResetTilesEvent event);
 
-    void onEvent(EndGameEvent event);
 
-    void onEvent(WordFoundEvent event);
 
 }

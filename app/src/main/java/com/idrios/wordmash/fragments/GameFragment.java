@@ -6,22 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.assets.BankView;
 import com.idrios.wordmash.assets.BoardView;
 import com.idrios.wordmash.common.Shared;
-import com.idrios.wordmash.events.Event;
-import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.GameEndEvent;
 import com.idrios.wordmash.events.engine.RandomizeEvent;
-import com.idrios.wordmash.events.engine.ResetTilesEvent;
-import com.idrios.wordmash.events.engine.WordFoundEvent;
+import com.idrios.wordmash.events.engine.LettersResetEvent;
+import com.idrios.wordmash.events.engine.WordDiscoverEvent;
+import com.idrios.wordmash.events.engine.WordRootDiscoverEvent;
 import com.idrios.wordmash.model.Game;
-import com.idrios.wordmash.ui.PanelView;
-
-import java.util.HashMap;
+import com.idrios.wordmash.assets.PanelView;
 
 /** The fragment loads all the viewable objects, but is not responsible for the programming behind
  * them (i.e. the bank and board are loaded from XML but the content in the bank and board are
@@ -67,9 +63,11 @@ public class GameFragment extends BaseFragment {
         panelContainer.addView(mPanelView);
 
         makeGame();
-        Shared.eventBus.listen(WordFoundEvent.TYPE, this);
+        Shared.eventBus.listen(GameEndEvent.TYPE, this);
+        Shared.eventBus.listen(WordDiscoverEvent.TYPE, this);
+        Shared.eventBus.listen(WordRootDiscoverEvent.TYPE, this);
         Shared.eventBus.listen(RandomizeEvent.TYPE, this);
-        Shared.eventBus.listen(ResetTilesEvent.TYPE, this);
+        Shared.eventBus.listen(LettersResetEvent.TYPE, this);
 
 
         //TODO get an image background
@@ -78,9 +76,11 @@ public class GameFragment extends BaseFragment {
 
     @Override
     public void onDestroy(){
-        Shared.eventBus.unlisten(WordFoundEvent.TYPE, this);
+        Shared.eventBus.unlisten(GameEndEvent.TYPE, this);
+        Shared.eventBus.unlisten(WordDiscoverEvent.TYPE, this);
+        Shared.eventBus.unlisten(WordRootDiscoverEvent.TYPE, this);
         Shared.eventBus.unlisten(RandomizeEvent.TYPE, this);
-        Shared.eventBus.unlisten(ResetTilesEvent.TYPE, this);
+        Shared.eventBus.unlisten(LettersResetEvent.TYPE, this);
         super.onDestroy();
     }
 
@@ -101,7 +101,12 @@ public class GameFragment extends BaseFragment {
     }
 
     @Override
-    public void onEvent(WordFoundEvent e){
+    public void onEvent(WordDiscoverEvent e){
+        mBankView.wordFound(e.word);
+    }
+
+    @Override
+    public void onEvent(WordRootDiscoverEvent e){
         mBankView.wordFound(e.word);
     }
 
@@ -111,12 +116,12 @@ public class GameFragment extends BaseFragment {
     }
 
     @Override
-    public void onEvent(ResetTilesEvent e){
+    public void onEvent(LettersResetEvent e){
         mBoardView.resetLetters();
     }
 
     @Override
-    public void onEvent(EndGameEvent e){
+    public void onEvent(GameEndEvent e){
         mBankView.showAll();
     }
 

@@ -5,12 +5,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.idrios.wordmash.R;
+import com.idrios.wordmash.common.Music;
 import com.idrios.wordmash.common.Shared;
 import com.idrios.wordmash.fragments.GameFragment;
 import com.idrios.wordmash.fragments.MenuFragment;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
+
+import static com.idrios.wordmash.engine.ScreenController.Screen.MENU;
 
 /**        for(Screen sc : openedScreens){
             if(sc == screen){
@@ -60,6 +64,7 @@ public class ScreenController {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+        Music.playTheme(screen);
         openedScreens.add(screen);
     }
 

@@ -4,14 +4,14 @@ import com.idrios.wordmash.events.AbstractEvent;
 import com.idrios.wordmash.events.EventObserver;
 
 /**
- * Created by idrios on 3/1/18.
+ * Created by idrios on 8/6/18.
  */
 
-public class StartGameEvent extends AbstractEvent {
+public class GameWinEvent extends AbstractEvent {
 
-    public static final String TYPE = StartGameEvent.class.getName();
+    public static final String TYPE = GameWinEvent.class.getName();
 
-    public StartGameEvent(){
+    public GameWinEvent(){
 
     }
 
@@ -24,4 +24,6 @@ public class StartGameEvent extends AbstractEvent {
     public String getType(){
         return TYPE;
     }
+
+
 }

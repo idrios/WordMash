@@ -4,17 +4,15 @@ import com.idrios.wordmash.events.AbstractEvent;
 import com.idrios.wordmash.events.EventObserver;
 
 /**
- * Created by idrios on 6/7/18.
+ * Created by idrios on 8/6/18.
  */
 
-public class WordFoundEvent extends AbstractEvent{
+public class GameLoseEvent extends AbstractEvent{
 
-    public static final String TYPE = EndGameEvent.class.getName();
+    public static final String TYPE = GameLoseEvent.class.getName();
 
-    public final String word;
+    public GameLoseEvent(){
 
-    public WordFoundEvent(String word){
-        this.word = word;
     }
 
     @Override

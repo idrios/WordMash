@@ -10,18 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.common.Shared;
-import com.idrios.wordmash.events.engine.LetterTappedEvent;
+import com.idrios.wordmash.events.engine.LetterTapEvent;
 import com.idrios.wordmash.model.board.BoardArrangement;
 import com.idrios.wordmash.model.GameConfiguration;
 import com.idrios.wordmash.model.Game;
 import com.idrios.wordmash.utils.Utils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -210,7 +208,7 @@ public class BoardView extends RelativeLayout {
                     moveLetterUp(id);
                 }
                 String curWord = getWord(mBoardArrangement.tileToLetterMap);
-                Shared.eventBus.notify(new LetterTappedEvent(curWord));
+                Shared.eventBus.notify(new LetterTapEvent(curWord));
                 //Toast.makeText(Shared.context, printBoard(), Toast.LENGTH_SHORT).show();
             }
         });

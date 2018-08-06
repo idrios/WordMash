@@ -4,14 +4,14 @@ import com.idrios.wordmash.events.AbstractEvent;
 import com.idrios.wordmash.events.EventObserver;
 
 /**
- * Created by idrios on 6/27/18.
+ * Created by idrios on 3/16/18.
  */
 
-public class ResetTilesEvent extends AbstractEvent{
+public class GameEndEvent extends AbstractEvent{
 
-    public static final String TYPE = ResetTilesEvent.class.getName();
+    public static final String TYPE = GameEndEvent.class.getName();
 
-    public ResetTilesEvent(){
+    public GameEndEvent(){
 
     }
 
@@ -24,6 +24,5 @@ public class ResetTilesEvent extends AbstractEvent{
     public String getType(){
         return TYPE;
     }
+
 }
-
-

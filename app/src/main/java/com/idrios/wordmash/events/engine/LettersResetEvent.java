@@ -2,20 +2,17 @@ package com.idrios.wordmash.events.engine;
 
 import com.idrios.wordmash.events.AbstractEvent;
 import com.idrios.wordmash.events.EventObserver;
-import com.idrios.wordmash.model.board.BoardArrangement;
 
 /**
- * Created by idrios on 2/16/18.
+ * Created by idrios on 6/27/18.
  */
 
-public class LetterTappedEvent extends AbstractEvent {
+public class LettersResetEvent extends AbstractEvent{
 
-    public static final String TYPE = LetterTappedEvent.class.getName();
+    public static final String TYPE = LettersResetEvent.class.getName();
 
-    public final String word;
+    public LettersResetEvent(){
 
-    public LetterTappedEvent(String word){
-        this.word = word;
     }
 
     @Override
@@ -28,3 +25,5 @@ public class LetterTappedEvent extends AbstractEvent {
         return TYPE;
     }
 }
+
+

@@ -1,11 +1,14 @@
 package com.idrios.wordmash.events;
 
-import com.idrios.wordmash.events.engine.EndGameEvent;
+import com.idrios.wordmash.events.engine.GameEndEvent;
+import com.idrios.wordmash.events.engine.GameLoseEvent;
+import com.idrios.wordmash.events.engine.GameWinEvent;
 import com.idrios.wordmash.events.engine.RandomizeEvent;
-import com.idrios.wordmash.events.engine.ResetTilesEvent;
-import com.idrios.wordmash.events.engine.StartGameEvent;
-import com.idrios.wordmash.events.engine.LetterTappedEvent;
-import com.idrios.wordmash.events.engine.WordFoundEvent;
+import com.idrios.wordmash.events.engine.LettersResetEvent;
+import com.idrios.wordmash.events.engine.GameStartEvent;
+import com.idrios.wordmash.events.engine.LetterTapEvent;
+import com.idrios.wordmash.events.engine.WordDiscoverEvent;
+import com.idrios.wordmash.events.engine.WordRootDiscoverEvent;
 
 /**
  * Created by idrios on 2/16/18.
@@ -14,23 +17,30 @@ import com.idrios.wordmash.events.engine.WordFoundEvent;
 public class EventObserverAdapter implements EventObserver {
 
     @Override
-    public void onEvent(StartGameEvent event){throw new UnsupportedOperationException();}
+    public void onEvent(GameStartEvent event){throw new UnsupportedOperationException();}
 
     @Override
-    public void onEvent(LetterTappedEvent event){throw new UnsupportedOperationException();}
+    public void onEvent(GameEndEvent event){throw new UnsupportedOperationException();}
+
+    @Override
+    public void onEvent(GameWinEvent event){throw new UnsupportedOperationException();}
+
+    @Override
+    public void onEvent(GameLoseEvent event){throw new UnsupportedOperationException();}
+
+    @Override
+    public void onEvent(WordDiscoverEvent event){throw new UnsupportedOperationException();}
+
+    @Override
+    public void onEvent(WordRootDiscoverEvent event){throw new UnsupportedOperationException();}
+
+    @Override
+    public void onEvent(LetterTapEvent event){throw new UnsupportedOperationException();}
+
+    @Override
+    public void onEvent(LettersResetEvent event){throw new UnsupportedOperationException();}
 
     @Override
     public void onEvent(RandomizeEvent event){throw new UnsupportedOperationException();}
-
-    @Override
-    public void onEvent(ResetTilesEvent event){throw new UnsupportedOperationException();}
-
-    @Override
-    public void onEvent(EndGameEvent event){throw new UnsupportedOperationException();}
-
-    @Override
-    public void onEvent(WordFoundEvent event){throw new UnsupportedOperationException();}
-
-
 
 }

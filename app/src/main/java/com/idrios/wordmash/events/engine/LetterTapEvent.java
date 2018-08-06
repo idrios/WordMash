@@ -4,15 +4,17 @@ import com.idrios.wordmash.events.AbstractEvent;
 import com.idrios.wordmash.events.EventObserver;
 
 /**
- * Created by idrios on 3/16/18.
+ * Created by idrios on 2/16/18.
  */
 
-public class EndGameEvent extends AbstractEvent{
+public class LetterTapEvent extends AbstractEvent {
 
-    public static final String TYPE = EndGameEvent.class.getName();
+    public static final String TYPE = LetterTapEvent.class.getName();
 
-    public EndGameEvent(){
+    public final String word;
 
+    public LetterTapEvent(String word){
+        this.word = word;
     }
 
     @Override
@@ -24,5 +26,4 @@ public class EndGameEvent extends AbstractEvent{
     public String getType(){
         return TYPE;
     }
-
 }
