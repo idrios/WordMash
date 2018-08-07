@@ -12,7 +12,7 @@ import com.idrios.wordmash.engine.ScreenController;
 
 public class Music {
 
-    public static boolean MUSIC_OFF = false;
+    public static boolean MUSIC_OFF = true;
     public static boolean SOUND_OFF = false;
     public static MediaPlayer MUSIC;
     public static Theme theme;
@@ -24,21 +24,61 @@ public class Music {
         GAME
     }
 
+    public static void toggleMusic(){
+        if(MUSIC_OFF){
+            setMusicOn();
+        }
+        else{
+            setMusicOff();
+        }
+    }
+    public static void setMusicOn(){
+        MUSIC_OFF = false;
+        if(MUSIC!=null) {
+            stop();
+        }
+        if(themeResource!=0){
+            MUSIC = MediaPlayer.create(Shared.context, themeResource);
+            MUSIC.setLooping(true);
+            MUSIC.start();
+        }
+    }
+    public static void setMusicOff(){
+        stop();
+        MUSIC_OFF = true;
+    }
+
+    public static void toggleSound(){
+        if(SOUND_OFF){
+            setSoundOn();
+        }
+        else{
+            setSoundOff();
+        }
+    }
+    public static void setSoundOn(){
+        SOUND_OFF = false;
+    }
+    public static void setSoundOff(){
+        SOUND_OFF = true;
+    }
+
     public static void playTheme(ScreenController.Screen screen){
+
+        Theme newTheme;
+        switch (screen){
+            case MENU:
+                newTheme = Theme.MAIN;
+                themeResource = R.raw.main_theme;
+                break;
+            case GAME:
+                newTheme = Theme.GAME;
+                themeResource = R.raw.game_theme;
+                break;
+            default:
+                return;
+        }
         if (!MUSIC_OFF) {
-            Theme newTheme;
-            switch (screen){
-                case MENU:
-                    newTheme = Theme.MAIN;
-                    themeResource = R.raw.main_theme;
-                    break;
-                case GAME:
-                    newTheme = Theme.GAME;
-                    themeResource = R.raw.game_theme;
-                    break;
-                default:
-                    return;
-            }
             if((MUSIC!=null) && theme != newTheme){
                 stop();
             }
@@ -50,35 +90,49 @@ public class Music {
     }
 
     public static void pauseShort(){
-        MUSIC.pause();
+        if(!MUSIC_OFF) {
+            MUSIC.pause();
+        }
     }
     public static void pauseLong(){
-        MUSIC.pause();
-        musicTime = MUSIC.getCurrentPosition();
+        if(!MUSIC_OFF) {
+            MUSIC.pause();
+            musicTime = MUSIC.getCurrentPosition();
+            MUSIC.reset();
+            MUSIC.release();
+            MUSIC = null;
+        }
+    }
+    public static void stop(){
+        if(MUSIC == null){
+            return;
+        }
+        MUSIC.stop();
         MUSIC.reset();
         MUSIC.release();
         MUSIC = null;
     }
-    public static void stop(){
-        MUSIC.stop();
-        MUSIC.reset();
-        MUSIC.release();
-    }
     public static void resumeShort(){
-        MUSIC.start();
+        if(!MUSIC_OFF) {
+            MUSIC.start();
+        }
     }
     public static void resumeLong(){
-        if(MUSIC == null) {
-            MUSIC = MediaPlayer.create(Shared.context, themeResource);
-            MUSIC.seekTo(musicTime);
-            MUSIC.start();
+        if (!MUSIC_OFF) {
+            if (MUSIC == null) {
+                MUSIC = MediaPlayer.create(Shared.context, themeResource);
+                MUSIC.seekTo(musicTime);
+                MUSIC.start();
+            }
         }
     }
 
     //Sometimes doesn't work
     public static void playGameLose(){
         if (!SOUND_OFF) {
-            MUSIC.pause();
+            if(!MUSIC_OFF) {
+                MUSIC.pause();
+            }
             MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.lose);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -86,7 +140,9 @@ public class Music {
                     mp.reset();
                     mp.release();
                     mp = null;
-                    MUSIC.start();
+                    if(!MUSIC_OFF) {
+                        MUSIC.start();
+                    }
                 }
             });
             mp.start();
@@ -96,7 +152,9 @@ public class Music {
     //Sometimes doesn't work
     public static void playGameWin(){
         if (!SOUND_OFF) {
-            MUSIC.pause();
+            if(!MUSIC_OFF) {
+                MUSIC.pause();
+            }
             MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.win);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -104,7 +162,9 @@ public class Music {
                     mp.reset();
                     mp.release();
                     mp = null;
-                    MUSIC.start();
+                    if(!MUSIC_OFF) {
+                        MUSIC.start();
+                    }
                 }
             });
             mp.start();

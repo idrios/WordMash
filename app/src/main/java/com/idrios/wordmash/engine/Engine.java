@@ -1,7 +1,5 @@
 package com.idrios.wordmash.engine;
 
-import android.media.MediaPlayer;
-
 import com.idrios.wordmash.R;
 import com.idrios.wordmash.common.Music;
 import com.idrios.wordmash.common.Settings;
@@ -146,8 +144,7 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(LettersResetEvent event){
-        MediaPlayer mDrop = MediaPlayer.create(Shared.context, R.raw.drop);
-        mDrop.start();
+        Music.playLettersReset();
     }
 
     public Game getActiveGame() {

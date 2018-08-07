@@ -1,13 +1,16 @@
 package com.idrios.wordmash.assets;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -75,7 +78,7 @@ public class BoardView extends RelativeLayout {
 
     public BoardView(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
-        setGravity(Gravity.CENTER);
+        setGravity(Gravity.CENTER_HORIZONTAL);
         int margin = getResources().getDimensionPixelSize(R.dimen.margine_top);
         int padding = getResources().getDimensionPixelSize(R.dimen.board_padding);
         mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20);
@@ -114,6 +117,7 @@ public class BoardView extends RelativeLayout {
 
     public void buildBoard(){
         for(int row = 0; row < 2; row++) {
+            addBranch(row, this); //Add a cool-looking branch for cool aesthetics
             for(int tileNum = 0; tileNum < mGameConfiguration.maxWordSize; tileNum++ ){
                 addTile(row, (row * mGameConfiguration.maxWordSize) + tileNum, this);
             }
@@ -122,6 +126,27 @@ public class BoardView extends RelativeLayout {
             addLetter(id, this);
             setLetterPosition(id, mBoardArrangement.letterToTileMap.get(id));
         }
+    }
+
+    private void addBranch(final int i, ViewGroup parent){
+        final ImageView branchView = new ImageView(Shared.context);
+        String resName = "branch" + (i+1);
+        int drawableResourceId = Shared.context.getResources().getIdentifier(resName, "drawable", Shared.context.getPackageName());
+        Resources res = getResources();
+        branchView.setImageDrawable(res.getDrawable(drawableResourceId));
+        branchView.setId(3000+i);
+        int bWidth = (int)(1.1*mScreenWidth); // arbitrarily scale by 1.1 to correct for incorrect screen width
+        int bHeight = (int)(1.1*(mScreenWidth*200)/1100);
+        RelativeLayout.LayoutParams branchLayoutParams = new RelativeLayout.LayoutParams(bWidth, bHeight);
+        if(i == 0) {
+            branchLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        } else {
+            branchLayoutParams.addRule(RelativeLayout.BELOW, 3000 + i - 1);
+        }
+        branchLayoutParams.topMargin = -(int)(bHeight*(1-(1/1.1)));
+        branchView.setLayoutParams(branchLayoutParams);
+        parent.addView(branchView);
+
     }
 
     private void addTile(final int row, final int id, ViewGroup parent){
@@ -140,6 +165,9 @@ public class BoardView extends RelativeLayout {
         tileLayoutParams.addRule(RelativeLayout.BELOW,
                 Integer.parseInt(getResources().getString(R.string.TileViewIdStartVal))
                         + id - mGameConfiguration.maxWordSize);
+        if(id%mGameConfiguration.maxWordSize==0){
+            tileLayoutParams.leftMargin = 2*getResources().getDimensionPixelSize(R.dimen.tile_left_margin); //x2 because Utils.screenSize seems inaccurate
+        }       //I should have the branches and tiles on different layers for the gravity:CENTER_HORIZONTAL to work correctly, but I am too lazy at this point. 
         if (row>0){
             tileLayoutParams.topMargin = getResources().getDimensionPixelSize(R.dimen.tile_top_margin);
         }
@@ -422,6 +450,13 @@ public class BoardView extends RelativeLayout {
         return s;
     }
 
+
+    public static Bitmap getBranchBitmap(String drawableResourceName, int width, int height){
+        int drawableResourceId = Shared.context.getResources().getIdentifier(drawableResourceName, "drawable", Shared.context.getPackageName());
+        Bitmap bitmap = Utils.scaleDown(drawableResourceId, width, height);
+        return bitmap;
+    }
+
     public static Bitmap getTileBitmap(int row, int size){
         String string;
         if(row == 0) string = TILEURLGUESS;
@@ -440,6 +475,7 @@ public class BoardView extends RelativeLayout {
         Bitmap bitmap = Utils.scaleDown(drawableResourceId, size, size);
         return bitmap;
     }
+
 
     public String printBoard(){
         String str = "";

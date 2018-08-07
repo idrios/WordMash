@@ -3,5 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+    <!--
+    <RelativeLayout
+        android:id="@+id/branch_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:id="@+id/branch_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/branch1"
+            />
+        <ImageView
+            android:id="@+id/branch_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/branch_1"
+            android:src="@drawable/branch2"
+            />
+
+    </RelativeLayout>
+    -->
 
 </com.idrios.wordmash.assets.BoardView>

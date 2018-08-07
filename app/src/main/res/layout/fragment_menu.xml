@@ -1,17 +1,64 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="bottom"
     tools:context="com.idrios.wordmash.fragments.MenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <Button
-        android:id="@+id/start"
+    <RelativeLayout
+        android:id="@+id/start_sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:text="Start game"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        >
+        <ImageView
+            android:id="@+id/start_base"
+            android:layout_width="@dimen/start_game_button_width"
+            android:layout_height="@dimen/start_game_button_height"
+            android:layout_marginTop="@dimen/start_game_button_margin_top"
+            />
+        <ImageView
+            android:id="@+id/start_post"
+            android:layout_width="@dimen/start_game_button_post_width"
+            android:layout_height="@dimen/start_game_button_post_height"
+            android:layout_alignTop="@+id/start_base"
+            android:layout_alignLeft="@+id/start_base"
+            android:layout_marginTop="@dimen/start_game_button_post_margin_top"
+            android:layout_marginLeft="@dimen/start_game_button_post_margin_left"
+            android:src="@drawable/post"
+            />
+        <ImageView
+            android:id="@+id/start_post_grass"
+            android:layout_width="@dimen/start_game_button_post_grass_width"
+            android:layout_height="@dimen/start_game_button_post_grass_height"
+            android:layout_alignBottom="@+id/start_post"
+            android:layout_alignLeft="@+id/start_base"
+            android:layout_marginBottom="@dimen/start_game_button_post_grass_margin_bottom"
+            android:layout_marginLeft="@dimen/start_game_button_post_grass_margin_left"
+            android:src="@drawable/grass_patch"
+            />
+        <ImageView
+            android:id="@+id/start"
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/start_game_button_width"
+            android:layout_height="@dimen/start_game_button_height"
+            android:layout_alignTop="@+id/start_base"
+            android:layout_alignLeft="@+id/start_base"
+            android:src="@drawable/btn_start_game_sign"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btn_settings"
+        android:layout_width="@dimen/settings_button_width"
+        android:layout_height="@dimen/settings_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/settings_button_margin_bottom"
+        android:layout_marginRight="@dimen/settings_button_margin_right"
+        android:src="@drawable/btn_settings"
         />
-</FrameLayout>
+</RelativeLayout>
