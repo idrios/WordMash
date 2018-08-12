@@ -3,7 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
-    tools:context="com.idrios.wordmash.fragments.MenuFragment">
+    tools:context="com.idrios.wordfall.fragments.MenuFragment">
+
+    <ImageView
+        android:layout_width="@dimen/title_width"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/title_margin_top"
+        android:src="@drawable/name_logo_2"
+        />
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout

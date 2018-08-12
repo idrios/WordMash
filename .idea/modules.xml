@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WordMash.iml" filepath="$PROJECT_DIR$/WordMash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WordFall.iml" filepath="$PROJECT_DIR$/WordFall.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

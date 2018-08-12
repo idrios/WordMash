@@ -2,6 +2,8 @@
 <resources>
 
     <!-- Menu settings -->
+    <dimen name="title_width">300dp</dimen>
+    <dimen name="title_margin_top">60dp</dimen>
     <dimen name="start_game_button_width">100dp</dimen>
     <dimen name="start_game_button_height">50dp</dimen>
     <dimen name="start_game_button_margin_top">100dp</dimen>
