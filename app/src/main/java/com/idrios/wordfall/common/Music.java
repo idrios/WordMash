@@ -24,7 +24,7 @@ public class Music {
     }
 
     public static void toggleMusic(){
-        if(MUSIC_OFF){
+        if(Memory.getMusicOff()){
             setMusicOn();
         }
         else{
@@ -33,6 +33,7 @@ public class Music {
     }
     public static void setMusicOn(){
         MUSIC_OFF = false;
+        Memory.saveMusicOff(false);
         if(MUSIC!=null) {
             stop();
         }
@@ -45,10 +46,11 @@ public class Music {
     public static void setMusicOff(){
         stop();
         MUSIC_OFF = true;
+        Memory.saveMusicOff(true);
     }
 
     public static void toggleSound(){
-        if(SOUND_OFF){
+        if(Memory.getSoundOff()){
             setSoundOn();
         }
         else{
@@ -57,22 +59,27 @@ public class Music {
     }
     public static void setSoundOn(){
         SOUND_OFF = false;
+        Memory.saveSoundOff(false);
     }
     public static void setSoundOff(){
         SOUND_OFF = true;
+        Memory.saveSoundOff(true);
     }
 
     public static void playTheme(ScreenController.Screen screen){
 
         Theme newTheme;
+        String rawResourceName;
         switch (screen){
             case MENU:
                 newTheme = Theme.MAIN;
-                themeResource = R.raw.main_theme;
+                rawResourceName = String.format("theme_main_%s", Memory.getMusicTheme());
+                themeResource = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
                 break;
             case GAME:
                 newTheme = Theme.GAME;
-                themeResource = R.raw.game_theme;
+                rawResourceName = String.format("theme_game_%s", Memory.getMusicTheme());
+                themeResource = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
                 break;
             default:
                 return;
@@ -132,7 +139,9 @@ public class Music {
             if(!MUSIC_OFF) {
                 MUSIC.pause();
             }
-            MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.lose);
+            String rawResourceName = String.format("sound_lose_%s", Memory.getSoundTheme());
+            int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
+            MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -154,7 +163,9 @@ public class Music {
             if(!MUSIC_OFF) {
                 MUSIC.pause();
             }
-            MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.win);
+            String rawResourceName = String.format("sound_win_%s", Memory.getSoundTheme());
+            int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
+            MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -171,7 +182,9 @@ public class Music {
     }
     public static void playWordDiscover(){
         if (!SOUND_OFF) {
-            MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.beep);
+            String rawResourceName = String.format("sound_worddiscover_%s", Memory.getSoundTheme());
+            int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
+            MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -186,7 +199,9 @@ public class Music {
     }
     public static void playWordRootDiscover(){
         if (!SOUND_OFF) {
-            MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.bing);
+            String rawResourceName = String.format("sound_wordrootdiscover_%s", Memory.getSoundTheme());
+            int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
+            MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -201,7 +216,9 @@ public class Music {
     }
     public static void playLettersReset(){
         if (!SOUND_OFF) {
-            MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.drop);
+            String rawResourceName = String.format("sound_drop_%s", Memory.getSoundTheme());
+            int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
+            MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -216,7 +233,9 @@ public class Music {
     }
     public static void playLetterTap(){
         if (!SOUND_OFF) {
-            MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.click);
+            String rawResourceName = String.format("sound_lettertap_%s", Memory.getSoundTheme());
+            int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
+            MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -230,7 +249,9 @@ public class Music {
     }
     public static void playLettersRandomize(){
         if (!SOUND_OFF) {
-            MediaPlayer mp = MediaPlayer.create(Shared.context, R.raw.randomize);
+            String rawResourceName = String.format("sound_lettertap_%s", Memory.getSoundTheme());
+            int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
+            MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {

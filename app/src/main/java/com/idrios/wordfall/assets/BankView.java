@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.idrios.wordfall.R;
 import com.idrios.wordfall.common.Shared;
@@ -23,13 +24,20 @@ import java.util.Map;
  * Created by idrios on 4/5/18.
  */
 
-public class BankView extends LinearLayout{
+/**
+ * <ScrollView>
+ *   <LinearLayout BankViewLayout
+
+ */
+public class BankView extends ScrollView{
 
     private static final String TAG = "BankView";
 
     //Game information
+    private final LinearLayout bankViewLayout = new LinearLayout(getContext());
+    private final LinearLayout.LayoutParams mViewLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     private LinearLayout.LayoutParams mColLayoutParams;
-    private LinearLayout.LayoutParams mRowLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+    private final LinearLayout.LayoutParams mRowLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private BoardArrangement mBoardArrangement;
     private GameConfiguration mGameConfiguration;
 
@@ -53,8 +61,11 @@ public class BankView extends LinearLayout{
     }
     public BankView(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
-        setGravity(Gravity.CENTER);
-        setOrientation(LinearLayout.HORIZONTAL);
+        setHorizontalScrollBarEnabled(false);
+        setVerticalScrollBarEnabled(true);
+        bankViewLayout.setGravity(Gravity.CENTER);
+        bankViewLayout.setOrientation(LinearLayout.HORIZONTAL);
+        addView(bankViewLayout, mViewLayoutParams);
         int margin = getResources().getDimensionPixelSize(R.dimen.margine_top);
         int padding = getResources().getDimensionPixelSize(R.dimen.board_padding);
         mScreenWidth = Utils.screenWidth() - padding*2 - Utils.px(20);
@@ -93,6 +104,7 @@ public class BankView extends LinearLayout{
         mSizeLetter = (int)Math.round(mSizeTile * 0.90);
 
         mColLayoutParams = new LinearLayout.LayoutParams(mWidthColumn, LayoutParams.MATCH_PARENT);
+        mColLayoutParams.setMargins(0, columnMarginVertical, 0, columnMarginVertical);
         mRowLayoutParams.setMargins(tileMarginLeft, 0, tileMarginRight, 0);
 
         buildBank();
@@ -133,7 +145,7 @@ public class BankView extends LinearLayout{
         colLayout.setGravity(Gravity.CENTER);
         colLayout.setOrientation(LinearLayout.VERTICAL);
 
-        addView(colLayout, mColLayoutParams);
+        bankViewLayout.addView(colLayout, mColLayoutParams);
         mBankColumnReference.put(id, colLayout);
     }
 
@@ -217,7 +229,7 @@ public class BankView extends LinearLayout{
 
             tileView.setId(tileId);
             tileView.setLayoutParams(mLayoutParams);
-            this.addView(tileView);
+            addView(tileView);
             mTileViewReference.put(tileId, tileView);
 
             // Render the TileView

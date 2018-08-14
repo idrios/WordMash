@@ -3,6 +3,7 @@ package com.idrios.wordfall.model.wordlist;
 import android.content.Context;
 
 import com.idrios.wordfall.R;
+import com.idrios.wordfall.common.Memory;
 import com.idrios.wordfall.common.Shared;
 
 import java.io.BufferedReader;
@@ -78,10 +79,15 @@ public class HashmapHelper {
     }
 
     public static void loadWordsFromFile(Context context){
-        int fIDSix = R.raw.six_letter_words;
-        int fIDFive = R.raw.five_letter_words;
-        int fIDFour = R.raw.four_letter_words;
-        int fIDThree = R.raw.three_letter_words;
+        int difficulty = Memory.getDifficulty();
+        String rawResourceName6 = String.format("words_letters%d_difficulty%d", 6, difficulty);
+        String rawResourceName5 = String.format("words_letters%d_difficulty%d", 5, difficulty);
+        String rawResourceName4 = String.format("words_letters%d_difficulty%d", 4, difficulty);
+        String rawResourceName3 = String.format("words_letters%d_difficulty%d", 3, difficulty);
+        int fIDSix = Shared.context.getResources().getIdentifier(rawResourceName6, "raw", Shared.context.getPackageName());
+        int fIDFive = Shared.context.getResources().getIdentifier(rawResourceName5, "raw", Shared.context.getPackageName());
+        int fIDFour = Shared.context.getResources().getIdentifier(rawResourceName4, "raw", Shared.context.getPackageName());
+        int fIDThree = Shared.context.getResources().getIdentifier(rawResourceName3, "raw", Shared.context.getPackageName());
         sixS = readRawTextFile(context, fIDSix);
         fiveS = readRawTextFile(context, fIDFive);
         fourS = readRawTextFile(context, fIDFour);
