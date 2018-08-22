@@ -46,6 +46,7 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Music.toggleMusic();
+                Music.toggleSound();
                 String msg = "on";
                 if(Music.MUSIC_OFF){
                     msg = "off";

@@ -249,7 +249,7 @@ public class Music {
     }
     public static void playLettersRandomize(){
         if (!SOUND_OFF) {
-            String rawResourceName = String.format("sound_lettertap_%s", Memory.getSoundTheme());
+            String rawResourceName = String.format("sound_shuffle_%s", Memory.getSoundTheme());
             int rId = Shared.context.getResources().getIdentifier(rawResourceName, "raw", Shared.context.getPackageName());
             MediaPlayer mp = MediaPlayer.create(Shared.context, rId);
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

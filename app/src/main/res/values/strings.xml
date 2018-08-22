@@ -4,8 +4,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Submenu -->
+    <string name="txtMusic">MUSIC</string>
+    <string name="txtSound">SOUND</string>
 
     <!-- ID names -->
     <string name="TileViewIdStartVal">1000</string>
+
+
 
 </resources>

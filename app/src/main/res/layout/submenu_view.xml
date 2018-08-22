@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/submenu_background"
+    >
+    <LinearLayout
+        android:id="@+id/layoutSubmenuMusic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/submenu_margin_top"
+        >
+        <ImageButton
+            android:id="@+id/btnMusic"
+            android:layout_width="@dimen/settings_button_width"
+            android:layout_height="@dimen/settings_button_height"
+            android:layout_marginLeft="@dimen/submenu_margin_left"
+            android:src="@drawable/submenu_toggle_off"
+            />
+        <TextView
+            android:id="@+id/txtMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/submenu_margin_horizontal"
+            android:text="@string/txtMusic"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSubmenuSound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/submenu_margin_vertical"
+        >
+        <ImageButton
+            android:id="@+id/btnSound"
+            android:layout_width="@dimen/settings_button_width"
+            android:layout_height="@dimen/settings_button_height"
+            android:layout_marginLeft="@dimen/submenu_margin_left"
+            android:src="@drawable/submenu_toggle_off"
+            />
+        <TextView
+            android:id="@+id/txtSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/submenu_margin_horizontal"
+            android:text="@string/txtSound"
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>
