@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import com.idrios.wordfall.R;
 import com.idrios.wordfall.assets.BankView;
 import com.idrios.wordfall.assets.BoardView;
+import com.idrios.wordfall.assets.PanelNewGameView;
 import com.idrios.wordfall.common.Shared;
 import com.idrios.wordfall.events.engine.GameEndEvent;
 import com.idrios.wordfall.events.engine.RandomizeEvent;
@@ -17,7 +18,7 @@ import com.idrios.wordfall.events.engine.LettersResetEvent;
 import com.idrios.wordfall.events.engine.WordDiscoverEvent;
 import com.idrios.wordfall.events.engine.WordRootDiscoverEvent;
 import com.idrios.wordfall.model.Game;
-import com.idrios.wordfall.assets.PanelView;
+import com.idrios.wordfall.assets.PanelOptionsView;
 
 /** The fragment loads all the viewable objects, but is not responsible for the programming behind
  * them (i.e. the bank and board are loaded from XML but the content in the bank and board are
@@ -30,7 +31,11 @@ public class GameFragment extends BaseFragment {
 
     private BoardView mBoardView;
     private BankView mBankView;
-    private PanelView mPanelView;
+    private PanelOptionsView mPanelOptionsView;
+    private PanelNewGameView mPanelNewgameView;
+    private FrameLayout mBankContainer;
+    private FrameLayout mBoardContainer;
+    private FrameLayout mPanelContainer;
 
     public GameFragment() {
 
@@ -49,18 +54,22 @@ public class GameFragment extends BaseFragment {
 
         //Make bank
         mBankView = BankView.fromXml(getActivity().getApplicationContext(), view);
-        FrameLayout bankContainer = (FrameLayout) view.findViewById(R.id.bank_container);
-        bankContainer.addView(mBankView);
+        mBankContainer = (FrameLayout) view.findViewById(R.id.bank_container);
+        mBankContainer.addView(mBankView);
 
         //Make board
         mBoardView = BoardView.fromXml(getActivity().getApplicationContext(), view);
-        FrameLayout boardContainer = (FrameLayout) view.findViewById(R.id.game_container);
-        boardContainer.addView(mBoardView);
+        mBoardContainer = (FrameLayout) view.findViewById(R.id.game_container);
+        mBoardContainer.addView(mBoardView);
 
         //Make panel
-        mPanelView = PanelView.fromXml(getActivity().getApplicationContext(), view);
-        FrameLayout panelContainer = (FrameLayout) view.findViewById(R.id.panel_container);
-        panelContainer.addView(mPanelView);
+        mPanelOptionsView = (PanelOptionsView)PanelOptionsView.fromXml(getActivity().getApplicationContext(), view);
+        mPanelContainer = (FrameLayout) view.findViewById(R.id.panel_container);
+        mPanelContainer.addView(mPanelOptionsView);
+
+        //Prepare end-game panel
+        mPanelNewgameView = PanelNewGameView.fromXml(getActivity().getApplicationContext(), view);
+
 
         makeGame();
         Shared.eventBus.listen(GameEndEvent.TYPE, this);
@@ -123,6 +132,8 @@ public class GameFragment extends BaseFragment {
     @Override
     public void onEvent(GameEndEvent e){
         mBankView.showAll();
+        mPanelContainer.removeAllViews();
+        mPanelContainer.addView(mPanelNewgameView);
     }
 
 }
