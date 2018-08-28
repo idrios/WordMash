@@ -65,13 +65,42 @@ public class Memory {
     }
 
 
-    public static void loadPreferencesAudio(){
+    public static boolean loadPreferencesAudio(){
         SharedPreferences sharedPreferences =
                 Shared.context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         mMusicTheme = sharedPreferences.getString(keyMusicTheme, "classical_calm");
         mSoundTheme = sharedPreferences.getString(keySoundTheme, "classic");
         mMusicOff = sharedPreferences.getBoolean(keyMusicOff, false);
         mSoundOff = sharedPreferences.getBoolean(keySoundOff, false);
+        return true;
+    }
+
+    public static boolean loadMusicOff(){
+        SharedPreferences sharedPreferences =
+                Shared.context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        mMusicOff = sharedPreferences.getBoolean(keyMusicOff, false);
+        return mMusicOff;
+    }
+
+    public static boolean loadSoundOff(){
+        SharedPreferences sharedPreferences =
+                Shared.context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        mSoundOff = sharedPreferences.getBoolean(keySoundOff, false);
+        return mSoundOff;
+    }
+
+    public static String loadMusicTheme(){
+        SharedPreferences sharedPreferences =
+                Shared.context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        mMusicTheme = sharedPreferences.getString(keyMusicTheme, "classic");
+        return mMusicTheme;
+    }
+
+    public static String loadSoundTheme(){
+        SharedPreferences sharedPreferences =
+                Shared.context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        mSoundTheme = sharedPreferences.getString(keySoundTheme, "classic");
+        return mSoundTheme;
     }
 
     public static int getDifficulty(){

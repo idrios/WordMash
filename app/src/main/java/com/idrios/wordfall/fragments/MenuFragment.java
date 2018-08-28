@@ -13,6 +13,7 @@ import com.idrios.wordfall.R;
 import com.idrios.wordfall.common.Music;
 import com.idrios.wordfall.common.Shared;
 import com.idrios.wordfall.events.engine.GameStartEvent;
+import com.idrios.wordfall.ui.PopupManager;
 
 
 public class MenuFragment extends Fragment {
@@ -45,13 +46,14 @@ public class MenuFragment extends Fragment {
         mSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Music.toggleMusic();
-                Music.toggleSound();
-                String msg = "on";
-                if(Music.MUSIC_OFF){
-                    msg = "off";
-                }
-                Toast.makeText(Shared.context, "Music is now " + msg, Toast.LENGTH_SHORT).show();
+                PopupManager.showPopupSettings();
+//                Music.toggleMusic();
+//                Music.toggleSound();
+//                String msg = "on";
+//                if(Music.MUSIC_OFF){
+//                    msg = "off";
+//                }
+//                Toast.makeText(Shared.context, "Music is now " + msg, Toast.LENGTH_SHORT).show();
             }
         });
         return view;

@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="left|top"
+    >
+    <LinearLayout
+        android:id="@+id/layoutSubmenuMusic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/popup_settings_margin_top"
+        android:layout_marginLeft="@dimen/popup_settings_margin_left"
+        >
+        <ImageView
+            android:id="@+id/btnMusic"
+            android:layout_width="@dimen/popup_settings_button_width"
+            android:layout_height="@dimen/popup_settings_button_height"
+            android:scaleType="fitCenter"
+            android:src="@drawable/submenu_toggle_off"
+            />
+        <TextView
+            android:id="@+id/txtMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/popup_settings_margin_horizontal"
+            android:layout_gravity="center_vertical"
+            android:textColor="#221100"
+            android:fontFamily="cursive"
+            android:textSize="@dimen/popup_settings_text_size"
+            android:text="@string/txtMusic"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSubmenuSound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/popup_settings_margin_vertical"
+        android:layout_marginLeft="@dimen/popup_settings_margin_left"
+        >
+        <ImageView
+            android:id="@+id/btnSound"
+            android:layout_width="@dimen/popup_settings_button_width"
+            android:layout_height="@dimen/popup_settings_button_height"
+            android:scaleType="fitCenter"
+            android:src="@drawable/submenu_toggle_off"
+            />
+        <TextView
+            android:id="@+id/txtSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/popup_settings_margin_horizontal"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="cursive"
+            android:textColor="#221100"
+            android:textSize="@dimen/popup_settings_text_size"
+            android:text="@string/txtSound"
+            />
+    </LinearLayout>
+
+
 
 </LinearLayout>

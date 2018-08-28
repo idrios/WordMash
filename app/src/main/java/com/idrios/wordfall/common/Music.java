@@ -10,9 +10,9 @@ import com.idrios.wordfall.engine.ScreenController;
  */
 
 public class Music {
-
-    public static boolean MUSIC_OFF = true;
-    public static boolean SOUND_OFF = false;
+    
+    public static boolean MUSIC_OFF = Memory.loadMusicOff();
+    public static boolean SOUND_OFF = Memory.loadSoundOff();
     public static MediaPlayer MUSIC;
     public static Theme theme;
     public static int themeResource;

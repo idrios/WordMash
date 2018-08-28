@@ -20,11 +20,16 @@
     <dimen name="settings_button_margin_right">10dp</dimen>
     <dimen name="settings_button_margin_bottom">10dp</dimen>
 
-    <!-- Submenu settings -->
-    <dimen name="submenu_margin_top">100dp</dimen>
-    <dimen name="submenu_margin_left">100dp</dimen>
-    <dimen name="submenu_margin_vertical">20dp</dimen>
-    <dimen name="submenu_margin_horizontal">40dp</dimen>
+    <!-- Popup menu settings -->
+    <dimen name="popup_settings_button_width">70dp</dimen>
+    <dimen name="popup_settings_button_height">70dp</dimen>
+    <dimen name="popup_settings_width">300dp</dimen>
+    <dimen name="popup_settings_height">220dp</dimen>
+    <dimen name="popup_settings_margin_top">30dp</dimen>
+    <dimen name="popup_settings_margin_left">30dp</dimen>
+    <dimen name="popup_settings_margin_vertical">20dp</dimen>
+    <dimen name="popup_settings_margin_horizontal">30dp</dimen>
+    <dimen name="popup_settings_text_size">40sp</dimen>
     
     <!-- Bank settings -->
     <dimen name="bank_tile_margin_left">5dp</dimen>

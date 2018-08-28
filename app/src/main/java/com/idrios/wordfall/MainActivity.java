@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.idrios.wordfall.common.Memory;
 import com.idrios.wordfall.common.Music;
 import com.idrios.wordfall.common.Shared;
 import com.idrios.wordfall.engine.Engine;
