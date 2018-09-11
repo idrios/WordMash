@@ -1,2 +1,3 @@
 # WordMash
-Repository for storing progress on my first serious attempt at making a game
+Text Twist for Android with a more intuitive interface and no ads. 
+
