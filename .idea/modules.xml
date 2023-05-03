@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WordFall.iml" filepath="$PROJECT_DIR$/WordFall.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WordFall.iml" filepath="$PROJECT_DIR$/.idea/modules/WordFall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordFall.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordFall.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordFall.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordFall.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordFall.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordFall.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WordFall.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WordFall.app.unitTest.iml" />
     </modules>
   </component>
 </project>
