@@ -4,11 +4,11 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "dev.jamesroberts.wordmash"
+        applicationId "com.idrios.wordmash"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "1.0.6"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
